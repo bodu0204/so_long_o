@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsuetsug < tsuetsug@student.42tokyo.jp>    +#+  +:+       +#+         #
+#    By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/05 14:06:28 by tsuetsug          #+#    #+#              #
-#    Updated: 2022/03/17 16:40:45 by tsuetsug         ###   ########.fr        #
+#    Updated: 2022/06/08 11:48:58 by ryoakira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,11 @@ RM		= rm -f
 all:	$(NAME)
 
 $(NAME): $(SRCS) $(0BJ) $(LIBFT) $(PRINT_F) $(MINILIB)
-	@echo "$(BWHITE)Compiling so_long...$(OFF)"
+#	@echo "$(BWHITE)Compiling so_long...$(OFF)"
 	$(CC) $(CC_FLAGS) -c $(SRCS) -I $(HEADERS)
 	cp minilibx/libmlx.dylib ./
 	$(CC) $(CC_FLAGS) $(OBJ) $(LIBFT) $(PRINT_F) -L./minilibx -lmlx -o $(NAME)
-	@echo "$(BGREEN)so_long build completed.$(OFF)"
+#	@echo "$(BGREEN)so_long build completed.$(OFF)"
 
 $(LIBFT):
 	@make -C libft

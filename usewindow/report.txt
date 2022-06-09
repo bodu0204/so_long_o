@@ -5,3 +5,124 @@
 	サーバはビデオカード、モニタ、キーボード、マウスなどのハードウェアを制御
 	Cocoaの情報少ない🥺
 	"X Window System"を使っていきたい。
+
+Display構造体
+	XExtData *ext_data;	/*  拡張機能がデータをぶら下げるフック */
+	struct _XPrivate *private1;
+	int fd;			/* ネットワークソケット */
+	int private2;
+	int proto_major_version;/* サーバーのXプロトコルのメジャーバージョン */
+	int proto_minor_version;/* サーバーのXプロトコルのマイナーバージョン */
+	char *vendor;		/* サーバハードウェアのベンダー  */
+        XID private3;
+	XID private4;
+	XID private5;
+	int private6;
+	XID (*resource_alloc)(	/* アロケータ関数 */
+		struct _XDisplay*
+	);
+	int byte_order;		/* 画面のバイト順、LSBFirst, MSBFirst  */
+	int bitmap_unit;	/* パディングとデータの必要量 */
+	int bitmap_pad;		/* ビットマップのパディングの必要性 */
+	int bitmap_bit_order;	/* 最下位または最重要 */
+	int nformats;		/* リストに含まれるpixmapのフォーマット数 */
+	ScreenFormat *pixmap_format;	/* ピックスマップフォーマットリスト */
+	int private8;
+	int release;		/* サーバのリリース */
+	struct _XPrivate *private9, *private10;
+	int qlen;		/* 入力イベントキューの長さ */
+	unsigned long last_request_read; /* 最後に読み込んだイベントのseq番号 */
+	unsigned long request;	/* sequence number of last request. */
+	XPointer private11;
+	XPointer private12;
+	XPointer private13;
+	XPointer private14;
+	unsigned max_request_size; /* maximum number 32 bit words in request*/
+	struct _XrmHashBucketRec *db;
+	int (*private15)(
+		struct _XDisplay*
+		);
+	char *display_name;	/* "host:display" string used on this connect*/
+	int default_screen;	/* default screen for operations */
+	int nscreens;		/* number of screens on this server*/
+	Screen *screens;	/* pointer to list of screens */
+	unsigned long motion_buffer;	/* size of motion buffer */
+	unsigned long private16;
+	int min_keycode;	/* minimum defined keycode */
+	int max_keycode;	/* maximum defined keycode */
+	XPointer private17;
+	XPointer private18;
+	int private19;
+	char *xdefaults;	/* contents of defaults from server */
+	/* there is more to this structure, but it is private to Xlib */
+
+
+Display *XOpenDisplay(char *display_name);
+	引数
+		display_name
+			ハードウェアのディスプレイ名を指定。display_name が NULL の場合には DISPLAY 環境 変数の値が使われる。
+	処理
+		XOpenDisplay は TCP, DECnet 通信プロトコル、またはローカルのプロセス間通信プロトコルを使ってアプリケーションと X サーバを接続する。
+	戻り値
+		Display *型
+
+DefaultScreen(Display *display);
+	マクロ
+	引数
+		Display *display
+			Display型。Displayの情報が入っている。
+	戻り値
+		int型, Displayの中にあるデフォルトのスクリーンの番号
+
+BlackPixel(Display *display, int screen_number)
+	マクロ
+	引数
+		Display *display
+			Xサーバへの接続を指定
+		int screen_number
+			ホストサーバ上の適切なスクリーン番号を指定
+	戻り値
+		int型, 指定された画面の黒のピクセル値
+
+WhitePixel(Display *display, int screen_number)
+	マクロ
+	引数
+		Display *display
+			Xサーバへの接続を指定
+		int screen_number
+			ホストサーバ上の適切なスクリーン番号を指定
+	戻り値
+		int型, 指定された画面の白のピクセル値
+
+DefaultRootWindow(Display *display)
+	マクロ
+	引数
+		Display *display
+			Xサーバへの接続を指定
+	戻り値
+		Window型, デフォルトスクリーンのルートウィンドウ
+
+Window XCreateWindow(Display *display, Window parent, x, y, width, height, border_width, depth, class, visual, valuemask, attributes)
+	引数
+		Display *display
+
+		Window parent
+
+		int x, y; 
+
+		unsigned int width, height;
+
+		unsigned int border_width;
+
+      int depth;
+
+      unsigned int class;
+
+      Visual *visual
+
+      unsigned long valuemask;
+
+      XSetWindowAttributes *attributes;
+
+コンパイル
+gcc -L/usr/X11R6/lib -I/usr/X11R6/include usewindow/imitate.c -lX11

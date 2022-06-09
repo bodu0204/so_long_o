@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "debug.h"
+char debugc;
+
 Display *dis;
 int screen;
 Window win;
@@ -52,21 +55,26 @@ int main() {
 }
 
 void init() {
- dot.x=100;dot.y=100;
- dis=XOpenDisplay((char *)0);
- screen=DefaultScreen(dis);
- black=BlackPixel(dis, screen);
- white=WhitePixel(dis, screen);
- red=RGB(255,0,0);
- blue=(0,0,255);
- win=XCreateSimpleWindow(dis, DefaultRootWindow(dis), 0, 0, 300, 300, 5, white, black);
- XSetStandardProperties(dis, win, "Howdy", "Hi", None, NULL, 0, NULL);
- XSelectInput(dis, win, ExposureMask | ButtonPressMask | KeyPressMask);
- gc=XCreateGC(dis, win, 0,0);
- XSetBackground(dis,gc,white);
- XSetForeground(dis,gc,black);
- XClearWindow(dis, win);
- XMapRaised(dis, win);
+	dot.x=100;dot.y=100;
+ 	dis=XOpenDisplay((char *)0);
+TEST
+read(STDIN_FILENO, &c, 1);
+	screen=DefaultScreen(dis);
+	black=BlackPixel(dis, screen);
+TESTnx("black", black)
+read(STDIN_FILENO, &c, 1);
+	white=WhitePixel(dis, screen);
+TESTnx("white", white)
+	red=RGB(255,0,0);
+	blue=RGB(0,0,255);
+	win=XCreateSimpleWindow(dis, DefaultRootWindow(dis), 0, 0, 300, 300, 5, white, black);
+	XSetStandardProperties(dis, win, "Howdy", "Hi", None, NULL, 0, NULL);
+	XSelectInput(dis, win, ExposureMask | ButtonPressMask | KeyPressMask);
+	gc=XCreateGC(dis, win, 0,0);
+	XSetBackground(dis,gc,white);
+	XSetForeground(dis,gc,black);
+	XClearWindow(dis, win);
+	XMapRaised(dis, win);
 }
 void dclose() {
  XFreeGC(dis, gc);
