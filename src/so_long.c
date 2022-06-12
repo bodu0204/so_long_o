@@ -29,7 +29,7 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("Unreadable file\n");
 }
 
-void	*read_map(int	fd, char *name, size_t s)
+char	*read_map(int	fd, char *name, size_t s)
 {
 	char	buf[BUFSIZ]
 	ssize_t	i;
