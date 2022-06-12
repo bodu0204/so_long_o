@@ -56,8 +56,6 @@ void	*read_map(int	fd, char *name, size_t s)
 		r = read_map(fd, name, s + i)
 	ft_memcpy(r, buf, i);
 	return (r);
-{
-
 }
 
 int game_process(void *p)
