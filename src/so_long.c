@@ -285,7 +285,7 @@ int		end_game(void *p)
 	t_info *i;
 
 	i = p;
-TESTp(&i)
+TESTp(i)
 	mlx_destroy_image(i->mlx, i->img_0);/* mlx_destroy_imageにセグフォの原因あり */
 TEST
 	mlx_destroy_image(i->mlx, i->img_1);
