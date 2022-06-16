@@ -194,7 +194,7 @@ TESTp(i->img_p)
 
 int game_process(void *p)
 {
-	static unsigned char time = 0;
+	static unsigned short time = 0;
 	t_info	*i;
 	static int		key;
 
