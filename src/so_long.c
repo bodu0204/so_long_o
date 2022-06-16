@@ -32,8 +32,11 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("No map!\n");
 	if (argc > 2)
 		error_exit("Too many maps!\n");
+	if (ft_strlen(argv[1]) < 4)
+		error_exit("Invalid format!\n");
 	if (ft_memcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 		error_exit("Invalid format!\n");
+TEST
 	read_map(i, 0, argv[1], 0);
 TEST
 	set_map(i);
@@ -44,6 +47,7 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 	char	buf[BUFSIZ];
 	ssize_t	j;
 
+TEST
 	if (name)
 	{
 		fd = open(name, O_RDONLY);
