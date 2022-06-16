@@ -152,6 +152,7 @@ void	get_img(t_info	*i)
 	i->img_p = mlx_xpm_file_to_image(i->mlx, FILE_P, &buf, &buf);
 	i->img_c = mlx_xpm_file_to_image(i->mlx, FILE_C, &buf, &buf);
 	i->img_e = mlx_xpm_file_to_image(i->mlx, FILE_E, &buf, &buf);
+TESTn(buf)
 	return ;
 }
 
@@ -171,18 +172,19 @@ TESTp(i->img_p)
 	{
 TESTn(c)
 TESTn(j)
+TESTn((j % i->map_w) * BLOCKLEN)
 		if (c == '0')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_0, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (c == '1')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_1, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (c == 'C')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_c, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_c, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (c == 'E')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 		c = i->map_c[j];
 	}
-	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc % i->map_h) * BLOCKLEN);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 	return ;
 }
 
@@ -199,7 +201,7 @@ TEST
 		end_game(i);
 	else if (key != NO_KEY && !time)
 	{
-		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc % i->map_h) * BLOCKLEN);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
 	}
 	time++;
@@ -229,7 +231,7 @@ void move(t_info	*i, int key)
 	}
 	else if (i->map_c[i->mc + c] == 'E' && !i->item)
 		end_game(i);
-	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc % i->map_h) * BLOCKLEN);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 }
 
 int set_gkey(int	key, void	*p)
