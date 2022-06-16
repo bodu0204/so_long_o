@@ -194,13 +194,13 @@ TESTp(i->img_p)
 
 int game_process(void *p)
 {
-	static	unsigned char time = 0;
+	static unsigned char time = 0;
 	t_info	*i;
-	int		key;
+	static int		key;
 
 	i = p;
-	key = g_key;
-	time %= 2;
+	if (time && g_key != NO_KEY)
+		key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
 	else if (key != NO_KEY && !time)
@@ -208,9 +208,12 @@ int game_process(void *p)
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
 	}
-	else
+	else if (time)
 		load(0xfffffff);
+	if (!time)
+		key = g_key;
 	time++;
+	time %= 2;
 	return (0);
 }
 
