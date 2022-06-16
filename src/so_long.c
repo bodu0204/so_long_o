@@ -203,14 +203,14 @@ int game_process(void *p)
 	i = p;
 	if (!key_ok && time == reset)
 		key_ok = 1;
-if (key != g_key)
-{
-TESTn(key_ok)
-TESTn(time)
-TESTn(reset)
-TESTn(key)
-TESTn(g_key)
-}
+//if (key != g_key)
+//{
+//TESTn(key_ok)
+//TESTn(time)
+//TESTn(reset)
+//TESTn(key)
+//TESTn(g_key)
+//}
 	if (key == NO_KEY && g_key != NO_KEY && key_ok)
 	{
 		reset = time;
@@ -277,7 +277,7 @@ int set_gkey(int	key, void	*p)
 		g_key = ESC_KEY;
 	else
 		g_key = NO_KEY;
-TESTn(g_key)
+//TESTn(g_key)
 	return(0);
 }
 
@@ -286,7 +286,7 @@ int rm_gkey(int	key, void	*p)
 	(void)p;
 	(void)key;
 	g_key = NO_KEY;
-TEST
+//TEST
 	return(0);
 }
 
