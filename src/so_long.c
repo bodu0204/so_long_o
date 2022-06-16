@@ -200,6 +200,7 @@ int game_process(void *p)
 
 	i = p;
 	key = g_key;
+	time %= 2;
 	if (key == ESC_KEY)
 		end_game(i);
 	else if (key != NO_KEY && !time)
@@ -207,6 +208,8 @@ int game_process(void *p)
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
 	}
+	else
+		load(0xffff);
 	time++;
 	return (0);
 }
@@ -235,6 +238,13 @@ void move(t_info	*i, int key)
 	else if (i->map_c[i->mc + c] == 'E' && !i->item)
 		end_game(i);
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
+}
+
+void load(unsigned lomg int i)
+{
+	while (i)
+		i--;
+	return ;
 }
 
 int set_gkey(int	key, void	*p)
