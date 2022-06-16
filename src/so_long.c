@@ -285,13 +285,17 @@ int		end_game(void *p)
 	t_info *i;
 
 	i = p;
+TEST
 	mlx_destroy_image(i->mlx, i->img_0);
 	mlx_destroy_image(i->mlx, i->img_1);
 	mlx_destroy_image(i->mlx, i->img_p);
 	mlx_destroy_image(i->mlx, i->img_c);
 	mlx_destroy_image(i->mlx, i->img_e);
+TEST
 	mlx_destroy_window(i->mlx, i->win);
+TEST
 	free(i->map_c);
+TEST
 	exit(0);
 	return (0);
 }
