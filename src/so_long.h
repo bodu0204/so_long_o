@@ -24,11 +24,11 @@ typedef struct s_info
 }	t_info;
 
 #define BLOCKLEN 30
-#define FILE_0 ""
-#define FILE_1 ""
-#define FILE_P ""
-#define FILE_C ""
-#define FILE_E ""
+#define FILE_0 "floor.xpm"
+#define FILE_1 "wall.xpm"
+#define FILE_P "anya0.xpm"
+#define FILE_C "peanuts.xpm"
+#define FILE_E "tv.xpm"
 
 enum
 {
