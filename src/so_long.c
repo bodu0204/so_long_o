@@ -221,7 +221,7 @@ int game_process(void *p)
 	static int		key_ok = 1;
 
 	i = p;
-	if (/* !key_ok  */&& time == reset)
+	if (/* !key_ok && */ time == reset)
 {
 TESTd(time_diff())
 		key_ok = 1;
@@ -298,7 +298,7 @@ int set_gkey(int	key, void	*p)
 	else if (key == 13 || key == 126)
 		g_key = FRONT;
 	else if (key == 53)
-		g_key = ESC_KEY;
+STOP		//g_key = ESC_KEY;
 	else
 		g_key = NO_KEY;
 //TESTn(g_key)
