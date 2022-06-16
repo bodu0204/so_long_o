@@ -57,7 +57,7 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 	}
 	else
 		read_map(i, fd, name, s + j);
-	ft_memcpy(i->map_c, buf, i);
+	ft_memcpy(i->map_c, buf, j);
 	return ;
 }
 
@@ -137,7 +137,9 @@ void	set_win(t_info	*i)
 	char	c;
 	size_t	j;
 
-	while (i->map_c[j])
+	j = 0;
+	c = i->map_c[j];
+	while (c)
 	{
 		if (c == '0')
 			mlx_put_image_to_window(i->mlx, i->win, i->img_0, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
