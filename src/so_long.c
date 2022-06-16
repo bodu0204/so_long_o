@@ -164,6 +164,8 @@ void	set_win(t_info	*i)
 	c = i->map_c[j];
 	while (c)
 	{
+TESTn(c)
+TESTn(j)
 		if (c == '0')
 			mlx_put_image_to_window(i->mlx, i->win, i->img_0, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
 		else if (c == '1')
