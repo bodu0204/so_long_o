@@ -162,6 +162,11 @@ void	set_win(t_info	*i)
 
 	j = 0;
 	c = i->map_c[j];
+TESTp(i->img_0)
+TESTp(i->img_1)
+TESTp(i->img_c)
+TESTp(i->img_e)
+TESTp(i->img_p)
 	while (c)
 	{
 TESTn(c)
