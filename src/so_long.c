@@ -207,7 +207,7 @@ int game_process(void *p)
 	key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
-	else if (key != NO_KEY && !(time % reset))
+	else if (key != NO_KEY && time == reset)
 	{
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
