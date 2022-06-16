@@ -11,12 +11,15 @@ int main(int argc, char *argv[])
 	get_map(&i, argc, argv);
 	i.mlx = mlx_init();
 	get_img(&i);
+TEST
 	set_win(&i);
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
+TEST
 	mlx_loop_hook(i.win, game_process, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, NULL);
 	mlx_hook(i.win, 3, 0, rm_gkey, NULL);
 	mlx_hook(i.win, 17, 0, end_game, NULL);
+TEST
 	mlx_loop(i.mlx);
  return (0);
 }
@@ -90,12 +93,7 @@ TEST
 			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
 			|| (i->mc && i->map_c[j] == 'P'))
 {
-TESTn(j)
-TESTn(!(j % (i->map_w + 1)) && i->map_c[j] != '1')
-TESTn(!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')
-TESTn(!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')
-TESTn(i->mc && i->map_c[j] != 'P')
-			file_error(i->map_c);
+TESTn			file_error(i->map_c);
 }
 		if (i->map_c[j] == '0' || i->map_c[j] == '1' || i->map_c[j] == 'C' || i->map_c[j] == 'E')
 		{
@@ -107,7 +105,6 @@ TESTn(i->mc && i->map_c[j] != 'P')
 		}
 		else if (i->map_c[j] == 'P')
 		{
-TESTn(j)
 			i->mc = c;
 			i->map_c[c] = '0';
 		}
@@ -187,6 +184,7 @@ int game_process(void *p)
 	t_info	*i;
 	int		key;
 
+TEST
 	i = p;
 	key = g_key;
 	if (key == ESC_KEY)
