@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 	get_map(&i, argc, argv);
 	i.mlx = mlx_init();
 	get_img(&i);
-TEST
+TESTp(&i)
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
 	set_win(&i);
 TEST
@@ -285,7 +285,7 @@ int		end_game(void *p)
 	t_info *i;
 
 	i = p;
-TEST
+TESTp(&i)
 	mlx_destroy_image(i->mlx, i->img_0);/* mlx_destroy_imageにセグフォの原因あり */
 TEST
 	mlx_destroy_image(i->mlx, i->img_1);
