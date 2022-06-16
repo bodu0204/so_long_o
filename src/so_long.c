@@ -194,14 +194,18 @@ TESTp(i->img_p)
 
 int game_process(void *p)
 {
-	static unsigned short time = 0;
-	static unsigned short reset = 0;
+	static unsigned int time = 0;
+	static unsigned int reset = 0;
 	t_info	*i;
 	static int		key;
+	static int		key_ok = 1;
 
 	i = p;
-	if (key == NO_KEY && g_key != NO_KEY)
+	if (key == NO_KEY && g_key != NO_KEY && key_ok)
+	{
 		reset = time;
+		key_ok = 0;
+	}
 	key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
@@ -212,6 +216,8 @@ int game_process(void *p)
 	}
 	time++;
 	time &= 0xfff;
+	if (time == reset)
+		key_ok = 1;
 	return (0);
 }
 
