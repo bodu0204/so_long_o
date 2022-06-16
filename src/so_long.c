@@ -106,16 +106,16 @@ TEST
 			i->mc = c;
 			i->map_c[c] = '0';
 		}
-		else
+		else if (!(i->map_c[j] == '\n' && !((j + 1) % (i->map_w + 1))))
 {
 TESTn(i->map_c[j])
 			file_error(i->map_c);
 }
-		j++;
 		if ((j + 1) % (i->map_w + 1))
 			c++;
 		else
 			i->map_h++;
+		j++;
 	}
 	if (j % (i->map_w + 1) || !(i->mc) || !(i->item) || !e)
 {
