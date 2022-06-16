@@ -88,7 +88,7 @@ TEST
 		if ((!(j % (i->map_w + 1)) && i->map_c[j] != '1')\
 			|| (!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')\
 			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
-			|| (i->mc && i->map_c[j] != 'P'))
+			|| (i->mc && i->map_c[j] == 'P'))
 {
 TESTn(j)
 TESTn(c)
