@@ -237,16 +237,16 @@ TESTd(time_diff())
 	if (key == NO_KEY && g_key != NO_KEY && key_ok)
 	{
 		reset = time;
-		key_ok = 0;
 		time_diff();
 	}
 	key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
-	else if (key != NO_KEY && time == reset)
+	else if (key != NO_KEY && key_ok)
 	{
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
+		key_ok = 0;
 	}
 	time++;
 	time &= 0xfff;
