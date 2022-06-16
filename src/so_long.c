@@ -205,10 +205,11 @@ int game_process(void *p)
 		key_ok = 1;
 	if (key == NO_KEY && g_key != NO_KEY && key_ok)
 	{
-TEST_
 		reset = time;
 		key_ok = 0;
 	}
+else if(key == NO_KEY && g_key != NO_KEY)
+TESTn(key_ok)
 	key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
