@@ -208,12 +208,9 @@ int game_process(void *p)
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
 	}
-	else if (time)
-		load(0xfffffff);
 	if (!time)
 		key = g_key;
 	time++;
-	time %= 2;
 	return (0);
 }
 
