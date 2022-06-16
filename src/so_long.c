@@ -66,7 +66,7 @@ TEST
 		i->map_c[s + j] = '\0';
 	}
 	else
-		read_map(i, fd, name, s + j);
+		read_map(i, fd, NULL, s + j);
 	ft_memcpy(i->map_c, buf, j);
 	return ;
 }
