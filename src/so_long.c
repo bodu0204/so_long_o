@@ -90,6 +90,7 @@ TEST
 			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
 			|| (i->mc && i->map_c[j] != 'P'))
 {
+TESTn(j)
 TESTn(!(j % (i->map_w + 1)) && i->map_c[j] != '1')
 TESTn(!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')
 TESTn(!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')
@@ -106,6 +107,7 @@ TESTn(i->mc && i->map_c[j] != 'P')
 		}
 		else if (i->map_c[j] == 'P')
 		{
+TESTn(j)
 			i->mc = c;
 			i->map_c[c] = '0';
 		}
