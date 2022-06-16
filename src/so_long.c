@@ -221,7 +221,7 @@ int game_process(void *p)
 	static int		key_ok = 1;
 
 	i = p;
-	if (!key_ok && time == reset)
+	if (/* !key_ok  */&& time == reset)
 {
 TESTd(time_diff())
 		key_ok = 1;
