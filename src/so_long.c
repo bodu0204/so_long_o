@@ -211,6 +211,7 @@ int game_process(void *p)
 	if (!time)
 		key = g_key;
 	time++;
+	time &= 0xfff;
 	return (0);
 }
 
