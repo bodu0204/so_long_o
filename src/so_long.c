@@ -18,7 +18,7 @@ TEST
 	mlx_loop_hook(i.mlx, game_process, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, NULL);
 	mlx_hook(i.win, 3, 0, rm_gkey, NULL);
-	mlx_hook(i.win, 17, 0, end_game, NULL);
+	mlx_hook(i.win, 17, 0, end_game, &i);
 TEST
 	mlx_loop(i.mlx);
  return (0);
