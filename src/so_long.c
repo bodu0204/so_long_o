@@ -195,14 +195,17 @@ TESTp(i->img_p)
 int game_process(void *p)
 {
 	static unsigned short time = 0;
+	static unsigned short reset;
 	t_info	*i;
 	static int		key;
 
 	i = p;
 	key = g_key;
+	if (key == NO_KEY && g_key != NO_KEY)
+		reset = time;
 	if (key == ESC_KEY)
 		end_game(i);
-	else if (key != NO_KEY && !time)
+	else if (key != NO_KEY && !(time % reset))
 	{
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, key);
