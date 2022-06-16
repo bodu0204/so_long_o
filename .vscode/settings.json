@@ -2,6 +2,7 @@
 	"C_Cpp.errorSquiggles": "Disabled",
 	"files.associations": {
 		"ios": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"__node_handle": "c"
 	}
 }
