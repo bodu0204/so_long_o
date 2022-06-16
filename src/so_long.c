@@ -35,6 +35,7 @@ void get_map(t_info *i, int argc, char *argv[])
 	if (ft_memcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 		error_exit("Invalid format!\n");
 	read_map(i, 0, argv[1], 0);
+TEST
 	set_map(i);
 }
 
