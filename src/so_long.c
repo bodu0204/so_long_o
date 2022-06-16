@@ -108,7 +108,7 @@ TEST
 		}
 		else
 {
-TEST
+TESTn(i->map_c[j])
 			file_error(i->map_c);
 }
 		j++;
