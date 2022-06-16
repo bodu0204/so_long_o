@@ -91,7 +91,6 @@ TEST
 			|| (i->mc && i->map_c[j] == 'P'))
 {
 TESTn(j)
-TESTn(c)
 TESTn(!(j % (i->map_w + 1)) && i->map_c[j] != '1')
 TESTn(!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')
 TESTn(!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')
