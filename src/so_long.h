@@ -47,6 +47,7 @@ void	get_img(t_info	*i);
 void	set_win(t_info	*i);
 int		game_process(void *p);
 void	move(t_info	*i, int key);
+void	load(unsigned lomg int i);
 int		set_gkey(int	key, void	*p);
 int		rm_gkey(int	key, void	*p);
 void	error_exit(char *msg);
