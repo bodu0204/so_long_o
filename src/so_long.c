@@ -36,6 +36,7 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("Invalid format!\n");
 	read_map(i, 0, argv[1], 0);
 	set_map(i);
+printf("%s", i->map_c);TEST
 }
 
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
@@ -197,7 +198,6 @@ int game_process(void *p)
 	t_info	*i;
 	int		key;
 
-TEST
 	i = p;
 	key = g_key;
 	if (key == ESC_KEY)
