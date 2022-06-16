@@ -9,19 +9,14 @@ int main(int argc, char *argv[])
 
 	ft_bzero(&i, sizeof(t_info));
 	get_map(&i, argc, argv);
-TEST
 	i.mlx = mlx_init();
-TEST
 	get_img(&i);
-TEST
 	set_win(&i);
-TEST
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
 	mlx_loop_hook(i.win, game_process, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, NULL);
 	mlx_hook(i.win, 3, 0, rm_gkey, NULL);
 	mlx_hook(i.win, 17, 0, end_game, NULL);
-TEST
 	mlx_loop(i.mlx);
  return (0);
 }
@@ -36,9 +31,7 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("Invalid format!\n");
 	if (ft_memcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 		error_exit("Invalid format!\n");
-TEST
 	read_map(i, 0, argv[1], 0);
-TEST
 	set_map(i);
 }
 
@@ -47,7 +40,6 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 	char	buf[BUFSIZ];
 	ssize_t	j;
 
-TEST
 	if (name)
 	{
 		fd = open(name, O_RDONLY);
@@ -83,7 +75,10 @@ void	set_map(t_info	*i)
 	while (i->map_c[j] == '1')
 		j++;
 	if (i->map_c[j] != '\n')
+{
+TEST
 		file_error(i->map_c);
+}
 	i->map_w = j;
 	i->map_h = 1;
 	c = j;
@@ -94,7 +89,10 @@ void	set_map(t_info	*i)
 			|| (!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')\
 			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
 			|| (i->mc && i->map_c[j] != 'P'))
+{
+TEST
 			file_error(i->map_c);
+}
 		if (i->map_c[j] == '0' || i->map_c[j] == '1' || i->map_c[j] == 'C' || i->map_c[j] == 'E')
 		{
 			if (i->map_c[j] == 'C')
@@ -109,7 +107,10 @@ void	set_map(t_info	*i)
 			i->map_c[c] = '0';
 		}
 		else
+{
+TEST
 			file_error(i->map_c);
+}
 		j++;
 		if ((j + 1) % (i->map_w + 1))
 			c++;
@@ -117,16 +118,25 @@ void	set_map(t_info	*i)
 			i->map_h++;
 	}
 	if (j % (i->map_w + 1) || !(i->mc) || !(i->item) || !e)
+{
+TEST
 		file_error(i->map_c);
+}
 	i->map_c[c + 1] = '\0';
 	while (c % i->map_w)
 	{
 		if (i->map_c[c] != '1')
+{
+TEST
 			file_error(i->map_c);
+}
 		c--;
 	}
 	if (i->map_c[c] != '1')
+{
+TEST
 		file_error(i->map_c);
+}
 	return ;
 }
 
