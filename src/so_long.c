@@ -200,9 +200,9 @@ int game_process(void *p)
 	static int		key;
 
 	i = p;
-	key = g_key;
 	if (key == NO_KEY && g_key != NO_KEY)
 		reset = time;
+	key = g_key;
 	if (key == ESC_KEY)
 		end_game(i);
 	else if (key != NO_KEY && !(time % reset))
