@@ -209,7 +209,7 @@ int game_process(void *p)
 		move(i, key);
 	}
 	else
-		load(0xfffff);
+		load(0xfffffff);
 	time++;
 	return (0);
 }
