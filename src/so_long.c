@@ -240,7 +240,7 @@ void move(t_info	*i, int key)
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 }
 
-void load(unsigned lomg int i)
+void load(unsigned lomg i)
 {
 	while (i)
 		i--;
