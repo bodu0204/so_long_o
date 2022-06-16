@@ -29,13 +29,13 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("Too many maps!\n");
 	if (ft_memcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 		error_exit("Invalid format!\n");
-	read_map(0, argv[1], 0);
-	set_map(&i);
+	read_map(i, 0, argv[1], 0);
+	set_map(i);
 }
 
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 {
-	char	buf[BUFSIZ]
+	char	buf[BUFSIZ];
 	ssize_t	j;
 
 	if (name)
@@ -56,7 +56,7 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 		i->map_c[s + j] = '\0';
 	}
 	else
-		read_map(i, fd, name, s + j)
+		read_map(i, fd, name, s + j);
 	ft_memcpy(i->map_c, buf, i);
 	return ;
 }
@@ -80,10 +80,10 @@ void	set_map(t_info	*i)
 	j++;
 	while (i->map_c[j])
 	{
-		if (!(j % (i->map_w + 1)) && i->map_c[j] != '1'\
-			|| !((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1'\
-			|| !((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n'\
-			|| i->mc && i->map_c[j] != 'P')
+		if ((!(j % (i->map_w + 1)) && i->map_c[j] != '1')\
+			|| (!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')\
+			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
+			|| (i->mc && i->map_c[j] != 'P'))
 			file_error(i->map_c);
 		if (i->map_c[j] == '0' || i->map_c[j] == '1' || i->map_c[j] == 'C' || i->map_c[j] == 'E')
 		{
@@ -148,7 +148,7 @@ void	set_win(t_info	*i)
 		else if (c == 'E')
 			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j % i->map_h) * BLOCKLEN);
 		j++;
-		c = i->map_c[j]
+		c = i->map_c[j];
 	}
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc % i->map_h) * BLOCKLEN);
 	return ;
@@ -174,7 +174,7 @@ int game_process(void *p)
 }
 
 void move(t_info	*i, int key)
-[
+{
 	int	c;
 
 	if (key == RIGHT)
@@ -197,7 +197,7 @@ void move(t_info	*i, int key)
 	else if (i->map_c[i->mc + c] == 'E' && !i->item)
 		end_game(i);
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc % i->map_h) * BLOCKLEN);
-]
+}
 
 int set_gkey(int	key, void	*p)
 {
@@ -241,8 +241,11 @@ void	file_error(char *must_free)
 	exit(1);
 }
 
-void	end_game(t_info *i)
+void	end_game(void *p)
 {
+	t_info *i;
+
+	i = p;
 	mlx_destroy_image(i->mlx, i->img_0);
 	mlx_destroy_image(i->mlx, i->img_1);
 	mlx_destroy_image(i->mlx, i->img_p);
