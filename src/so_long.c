@@ -201,6 +201,8 @@ int game_process(void *p)
 	static int		key_ok = 1;
 
 	i = p;
+	if (!key_ok && time == reset)
+		key_ok = 1;
 	if (key == NO_KEY && g_key != NO_KEY && key_ok)
 	{
 TEST_
@@ -217,8 +219,6 @@ TEST_
 	}
 	time++;
 	time &= 0xfff;
-	if (time == reset)
-		key_ok = 1;
 	return (0);
 }
 
