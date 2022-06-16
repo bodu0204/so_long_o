@@ -203,6 +203,7 @@ int game_process(void *p)
 	i = p;
 	if (key == NO_KEY && g_key != NO_KEY && key_ok)
 	{
+TEST_
 		reset = time;
 		key_ok = 0;
 	}
