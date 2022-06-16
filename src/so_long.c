@@ -223,8 +223,8 @@ void move(t_info	*i, int key)
 		c = -1;
 	else
 		c = i->map_w;
-	if (i->map_c[i->mc + c] != '1'
-		|| i->map_c[i->mc + c] != 'E')
+	if (i->map_c[i->mc + c] != '1'\
+		&& i->map_c[i->mc + c] != 'E')
 	{
 		write(STDOUT_FILENO, "[moveing]\n", 10);
 		i->mc += c;
