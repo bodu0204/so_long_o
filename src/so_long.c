@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
 	i.mlx = mlx_init();
 	get_img(&i);
 TEST
-	set_win(&i);
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
+	set_win(&i);
 TEST
 	mlx_loop_hook(i.win, game_process, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, NULL);
