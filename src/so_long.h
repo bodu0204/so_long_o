@@ -51,7 +51,7 @@ int		set_gkey(int	key, void	*p);
 int		rm_gkey(int	key, void	*p);
 void	error_exit(char *msg);
 void	file_error(char *must_free);
-void	end_game(void *i);
+int		end_game(void *i);
 
 
 size_t	ft_strlen(const char *str);

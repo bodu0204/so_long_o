@@ -223,6 +223,7 @@ TESTn(g_key)
 int rm_gkey(int	key, void	*p)
 {
 	(void)p;
+	(void)key;
 	g_key = NO_KEY;
 TEST
 	return(0);
@@ -243,7 +244,7 @@ void	file_error(char *must_free)
 	exit(1);
 }
 
-void	end_game(void *p)
+int		end_game(void *p)
 {
 	t_info *i;
 
@@ -256,4 +257,5 @@ void	end_game(void *p)
 	mlx_destroy_window(i->mlx, i->win);
 	free(i->map_c);
 	exit(0);
+	return (0);
 }
