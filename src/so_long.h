@@ -40,9 +40,19 @@ enum
 	ESC_KEY
 };
 
+void	get_map(t_info *i, int argc, char *argv[]);
+void	read_map(t_info	*i, int	fd, char	*name, size_t	s);
+void	set_map(t_info	*i);
+void	get_img(t_info	*i);
+void	set_win(t_info	*i);
+int		game_process(void *p);
+void	move(t_info	*i, int key);
+int		set_gkey(int	key, void	*p);
+int		rm_gkey(int	key, void	*p);
 void	error_exit(char *msg);
-int set_gkey(int key, void *p);
-int rm_gkey(int	key, void	*p);
+void	file_error(char *must_free);
+void	end_game(t_info *i);
+
 
 size_t	ft_strlen(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

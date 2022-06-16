@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	mlx_loop(i.mlx);
  return (0);
 }
+
 void get_map(t_info *i, int argc, char *argv[])
 {
 	if (argc < 2)
