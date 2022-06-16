@@ -15,10 +15,10 @@ TEST
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
 	set_win(&i);
 TEST
-	mlx_loop_hook(i.win, game_process, &i);
-	//mlx_hook(i.win, 2, 0, set_gkey, NULL);
-	//mlx_hook(i.win, 3, 0, rm_gkey, NULL);
-	//mlx_hook(i.win, 17, 0, end_game, NULL);
+	mlx_loop_hook(i.mlx, game_process, &i);
+	mlx_hook(i.win, 2, 0, set_gkey, NULL);
+	mlx_hook(i.win, 3, 0, rm_gkey, NULL);
+	mlx_hook(i.win, 17, 0, end_game, NULL);
 TEST
 	mlx_loop(i.mlx);
  return (0);
