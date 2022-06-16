@@ -1,24 +1,24 @@
 #include"so_long.h"
 #include "debug.h"
 
-/* test */	double	time_diff(void)
-/* test */	{
-/* test */		static struct timespec	p = {0};
-/* test */		struct timespec			n;
-/* test */		unsigned int			sec;
-/* test */		int						nsec;
+/* test */  double	time_diff(void)
+/* test */  {
+/* test */  	static struct timespec	p = {0};
+/* test */  	struct timespec			n;
+/* test */  	unsigned int			sec;
+/* test */  	int						nsec;
 /* test */
-/* test */		if (!p.tv_sec)
-/* test */		{
-/* test */			clock_gettime(CLOCK_REALTIME, &p);
-/* test */			return (0);
-/* test */		}
-/* test */		clock_gettime(CLOCK_REALTIME, &n);
-/* test */		sec = n.tv_sec - p.tv_sec;
-/* test */		nsec = n.tv_nsec - p.tv_nsec;
-/* test */		p = n;
-/* test */		return ((double)sec + (double)nsec / (1000 * 1000 * 1000));
-/* test */	}
+/* test */  	if (!p.tv_sec)
+/* test */  	{
+/* test */  		clock_gettime(CLOCK_REALTIME, &p);
+/* test */  		return (0);
+/* test */  	}
+/* test */  	clock_gettime(CLOCK_REALTIME, &n);
+/* test */  	sec = n.tv_sec - p.tv_sec;
+/* test */  	nsec = n.tv_nsec - p.tv_nsec;
+/* test */  	p = n;
+/* test */  	return ((double)sec + (double)nsec / (1000 * 1000 * 1000));
+/* test */  }
 
 
 int g_key;
@@ -222,10 +222,7 @@ int game_process(void *p)
 
 	i = p;
 	if (!key_ok && time == reset)
-{
-TESTd(time_diff())
 		key_ok = 1;
-}
 //if (key != g_key)
 //{
 //TESTn(key_ok)
@@ -238,7 +235,6 @@ TESTd(time_diff())
 	{
 		reset = time;
 		key_ok = 0;
-		time_diff();
 	}
 	key = g_key;
 	if (key == ESC_KEY)
@@ -334,13 +330,18 @@ int		end_game(void *p)
 	t_info *i;
 
 	i = p;
-	mlx_destroy_image(i->mlx, i->img_0);
+TESTp(i)
+	mlx_destroy_image(i->mlx, i->img_0);/* mlx_destroy_imageにセグフォの原因あり */
+TEST
 	mlx_destroy_image(i->mlx, i->img_1);
 	mlx_destroy_image(i->mlx, i->img_p);
 	mlx_destroy_image(i->mlx, i->img_c);
 	mlx_destroy_image(i->mlx, i->img_e);
+TEST
 	mlx_destroy_window(i->mlx, i->win);
+TEST
 	free(i->map_c);
+TEST
 	exit(0);
 	return (0);
 }
