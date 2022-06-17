@@ -249,7 +249,7 @@ TESTd(time_diff())
 		key_ok = 0;
 	}
 	time++;
-	time &= 0x4ff;
+	time &= 0x7ff;
 	return (0);
 }
 
