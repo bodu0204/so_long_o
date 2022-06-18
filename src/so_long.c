@@ -161,12 +161,13 @@ void	get_img(t_info	*i)
 void	set_win(t_info	*i)
 {
 	size_t	j;
+	int		buf;
 	void	*img0;
 	void	*img1;
 
 TEST
-	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &((int)j), &((int)j));
-	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &((int)j), &((int)j));
+	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
+	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
 TEST
 	j = 0;
 	while (i->map_c[j])
