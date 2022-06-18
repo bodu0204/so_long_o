@@ -99,10 +99,7 @@ void	set_map(t_info	*i)
 	while (i->map_c[j] == '1')
 		j++;
 	if (i->map_c[j] != '\n')
-{
-TEST
 		file_error(i->map_c);
-}
 	i->map_w = j;
 	i->map_h = 1;
 	c = j;
@@ -113,10 +110,7 @@ TEST
 			|| (!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')\
 			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
 			|| (i->mc && i->map_c[j] == 'P'))
-{
-TEST
 			file_error(i->map_c);
-}
 		if (i->map_c[j] == '0' || i->map_c[j] == '1' || i->map_c[j] == 'C' || i->map_c[j] == 'E')
 		{
 			if (i->map_c[j] == 'C')
@@ -131,10 +125,7 @@ TEST
 			i->map_c[c] = '0';
 		}
 		else if (!(i->map_c[j] == '\n' && !((j + 1) % (i->map_w + 1))))
-{
-TESTn(i->map_c[j])
 			file_error(i->map_c);
-}
 		if ((j + 1) % (i->map_w + 1))
 			c++;
 		else
@@ -142,25 +133,16 @@ TESTn(i->map_c[j])
 		j++;
 	}
 	if (j % (i->map_w + 1) || !(i->mc) || !(i->item) || !e)
-{
-TEST
 		file_error(i->map_c);
-}
 	i->map_c[c + 1] = '\0';
 	while (c % i->map_w)
 	{
 		if (i->map_c[c] != '1')
-{
-TEST
 			file_error(i->map_c);
-}
 		c--;
 	}
 	if (i->map_c[c] != '1')
-{
-TEST
 		file_error(i->map_c);
-}
 	return ;
 }
 
@@ -173,7 +155,6 @@ void	get_img(t_info	*i)
 	i->img_p = mlx_xpm_file_to_image(i->mlx, FILE_P, &buf, &buf);
 	i->img_c = mlx_xpm_file_to_image(i->mlx, FILE_C, &buf, &buf);
 	i->img_e = mlx_xpm_file_to_image(i->mlx, FILE_E, &buf, &buf);
-TESTn(buf)
 	return ;
 }
 
@@ -221,7 +202,7 @@ int game_process(void *p)
 	static int		key_ok = 1;
 
 	i = p;
-	if (/* !key_ok && */ time == reset)
+	if (time == reset)
 {
 TESTd(time_diff())
 		key_ok = 1;
@@ -298,7 +279,7 @@ int set_gkey(int	key, void	*p)
 	else if (key == 13 || key == 126)
 		g_key = FRONT;
 	else if (key == 53)
-STOP		//g_key = ESC_KEY;
+		g_key = ESC_KEY;
 	else
 		g_key = NO_KEY;
 //TESTn(g_key)
