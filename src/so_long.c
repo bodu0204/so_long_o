@@ -160,34 +160,31 @@ void	get_img(t_info	*i)
 
 void	set_win(t_info	*i)
 {
-	char	c;
 	size_t	j;
+	void	*img0;
+	void	*img1;
 
+	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &j, &j);
+	img1 = mlx_xpm_file_to_image(i->mlx, FILE_0, &j, &j);
 	j = 0;
-	c = i->map_c[j];
-TESTp(i->mlx)
-TESTp(i->win)
-TESTp(i->img_0)
-TESTp(i->img_1)
-TESTp(i->img_c)
-TESTp(i->img_e)
-TESTp(i->img_p)
-	while (c)
+	while (i->map_c[j])
 	{
-//TESTn(c)
-//TESTn(j)
-//TESTn((j % i->map_w) * BLOCKLEN)
-//TESTn((j / i->map_w) * BLOCKLEN)
-		if (c == '0')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
-		else if (c == '1')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
-		else if (c == 'C')
+		if (i->map_c[j] == '1')
+			mlx_put_image_to_window(i->mlx, i->win, img1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+		else
+			mlx_put_image_to_window(i->mlx, i->win, img0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+		j++;
+	}
+	mlx_destroy_image(i->mlx, img0);
+	mlx_destroy_image(i->mlx, img1);
+	j = 0;
+	while (i->map_c[j])
+	{
+		if (i->map_c[j] == 'C')
 			mlx_put_image_to_window(i->mlx, i->win, i->img_c, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
-		else if (c == 'E')
+		else if (i->map_c[j] == 'E')
 			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
-		c = i->map_c[j];
 	}
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 	return ;

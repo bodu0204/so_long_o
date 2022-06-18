@@ -24,6 +24,8 @@ typedef struct s_info
 }	t_info;
 
 #define BLOCKLEN 30
+#define FILE_0b "floor_big.xpm"
+#define FILE_1b "wall_big.xpm"
 #define FILE_0 "floor.xpm"
 #define FILE_1 "wall.xpm"
 #define FILE_P "anya0.xpm"
