@@ -41,7 +41,7 @@ submitfile : push cloneprintf
 #	cp -rf $(SRC_PASS)* $(SUBMIT_d)
 	cp -rf $(SRCb_PASS)* $(SUBMIT_d)
 #	cp -rf $(OTHER_PASS)* $(SUBMIT_d)
-	cp -rf $(IMG_d) $(SUBMIT_d)
+	cp -r $(IMG_d) $(SUBMIT_d)
 	mv $(PRINTF_d) $(SUBMIT_d)
 
 submit : outclean submitfile
