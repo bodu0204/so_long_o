@@ -7,6 +7,7 @@ SRC_PASS		= src/
 SRCb_PASS		= src_bonus/
 OTHER_PASS		= other/
 SUBMIT_d		= $(PROJECT_NAME)/
+IMG_d			= img/
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
 PRINTF_od		= libftprintf_o/
 PRINTF_a		= libftprintf.a
@@ -37,9 +38,10 @@ cloneprintf :
 
 submitfile : push cloneprintf
 	mkdir $(SUBMIT_d)
-	cp -rf $(SRC_PASS)* $(SUBMIT_d)
-#	cp -rf $(SRCb_PASS)* $(SUBMIT_d)
+#	cp -rf $(SRC_PASS)* $(SUBMIT_d)
+	cp -rf $(SRCb_PASS)* $(SUBMIT_d)
 #	cp -rf $(OTHER_PASS)* $(SUBMIT_d)
+	cp -rf $(IMG_d) $(SUBMIT_d)
 	mv $(PRINTF_d) $(SUBMIT_d)
 
 submit : outclean submitfile

@@ -3,6 +3,10 @@
 	"files.associations": {
 		"ios": "c",
 		"mlx.h": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"memory": "c",
+		"optional": "c"
 	}
 }
