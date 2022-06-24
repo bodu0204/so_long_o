@@ -4,16 +4,19 @@ ACHIEVb			= $(ACHIEV)_bonus
 SRC_d			= src/
 SHA256_d		= sha256_src/
 SRCb_d			= src_bonus/
-SRC				=
+MINLIBX_d		= minilibx_mms_20200219/
+SRC				= so_long.c
 SHA256_SRC		= sha256.c sha256_done.c sha256_hash.c sha256_init.c sha256_utilA.c sha256_utilB.c tool.c
-SRCb			=
-HEDER			= client.h
-HEDERb			= client.h
+SRCb			= so_long.c
+SHA256_h		= sha256.h
+HEDER			= so_long.h
+HEDERb			= so_long.h
 SRC_o			= $(SRC:%.c=%.o)
 SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
+MINLIBX			= libmlx.dylib
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -I./
+CFLAGS			= -Wall -Wextra -Werror
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
 PRINTF_od		= ftprintf_o/
 PRINTF_d		= libftprintf/
@@ -23,23 +26,19 @@ all : $(ACHIEV)
 
 $(NAME) : all
 
-$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(SHA256_d)$(SHA256_h) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o))
-	$(CC) $(CFLAGS) $(addprefix $(CLIENT_d),$(CLIENT_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) -o $(ACHIEV)
+$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(SHA256_d)$(SHA256_h) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX_d)$(MINLIBX)
+	$(CC) $(CFLAGS) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX_d)$(MINLIBX) -o $(ACHIEV)
 
-$(ACHIEVb) : $(PRINTF_a) $(SERVER_d)$(SERVER_h) $(SHA256_d)$(SHA256_h) $(addprefix $(SERVER_d),$(SERVER_o)) $(addprefix $(SHA256_d),$(SHA256_o))
-	$(CC) $(CFLAGS) $(addprefix $(SERVER_d),$(SERVER_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) -o $(ACHIEVb)
+$(ACHIEVb) : $(PRINTF_a) $(SRCb_d)$(HEDERb) $(SHA256_d)$(SHA256_h) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX)
+	$(CC) $(CFLAGS) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX_d)$(MINLIBX) -o $(ACHIEVb)
 
 bonus : $(ACHIEVb)
 
-$(ACHIEVb) : $(PRINTF_a) $(CLIENTb_d)$(CLIENTb_h) $(SHA256b_d)$(SHA256b_h) $(addprefix $(CLIENTb_d),$(CLIENTb_o)) $(addprefix $(SHA256b_d),$(SHA256b_o))
-	$(CC) $(CFLAGS) $(addprefix $(CLIENTb_d),$(CLIENTb_o)) $(addprefix $(SHA256b_d),$(SHA256b_o)) $(PRINTF_a) -o $(ACHIEVb)
-
-$(ACHIEVb) : $(PRINTF_a) $(SERVERb_d)$(SERVERb_h) $(SHA256b_d)$(SHA256b_h) $(addprefix $(SERVERb_d),$(SERVERb_o)) $(addprefix $(SHA256b_d),$(SHA256b_o))
-	$(CC) $(CFLAGS) $(addprefix $(SERVERb_d),$(SERVERb_o)) $(addprefix $(SHA256b_d),$(SHA256b_o)) $(PRINTF_a) -o $(ACHIEVb)
-
-
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $(basename $<).o
+
+$(MINLIBX_d)$(MINLIBX) :
+	cd "$(MINLIBX_d)" && make
 
 $(PRINTF_d) :
 	rm -rf $(PRINTF_d)

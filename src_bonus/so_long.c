@@ -20,9 +20,6 @@
 /* test */		return ((double)sec + (double)nsec / (1000 * 1000 * 1000));
 /* test */	}
 
-
-int i->newkey;
-
 int main(int argc, char *argv[])
 {
 	t_info i;
@@ -304,12 +301,12 @@ int game_main(void *p)
 		game_process(i);
 	else if (i->situ == SUCCESS)
 	{
-		success_win(i);/* 各種freeも行う */
+		success_win(i);
 		i->situ = END;
 	}
 	else if (i->situ == FALE)
 	{
-		fale_win(i);/* 各種freeも行う */
+		fale_win(i);
 		i->situ = END;
 	}
 	else if (i->situ == END && i->newkey == ESC_KEY)
@@ -464,7 +461,20 @@ void m_killer1(t_info	*i, t_mob	*m)
 
 size_t distance(t_info	*i, t_mob	*m1, t_mob	*m2)
 {
+	size_t	x;
+	size_t	y;
 
+	if (m1->nowx > m2->nowx)
+		x = m1->nowx - m2->nowx;
+	else
+		x = m2->nowx - m1->nowx;
+	if (m1->nowy > m2->nowy)
+		y = m1->nowy - m2->nowy;
+	else
+		y = m2->nowy - m1->nowy;
+	if (x < y)
+		return (x);
+	return (y);
 }
 
 void	advance(t_info	*i, t_mob	*m, int	*able)

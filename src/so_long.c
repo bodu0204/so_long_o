@@ -240,6 +240,33 @@ TESTn(key)
 	return(0);
 }
 
+void move(t_info	*i, int key)
+{
+	int	c;
+
+	if (key == RIGHT)
+		c = 1;
+	else if (key == FRONT)
+		c = i->map_w * -1;
+	else if (key == LEFT)
+		c = -1;
+	else
+		c = i->map_w;
+	if (i->map_c[i->mc + c] != '1'\
+		&& i->map_c[i->mc + c] != 'E')
+	{
+		write(STDOUT_FILENO, "[moveing]\n", 10);
+		i->mc += c;
+		if(i->map_c[i->mc] == 'C')
+			i->item--;
+		i->map_c[i->mc] = '0';
+	}
+	else if (i->map_c[i->mc + c] == 'E' && !i->item)
+		end_game(i);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
+}
+
+
 int rm_gkey(int	key, void	*p)
 {
 	(void)p;
