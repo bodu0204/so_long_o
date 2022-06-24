@@ -1,13 +1,13 @@
 PROJECT_NAME	= so_long
-ACHIEV0			= so_long
-#ACHIEV1			= server
-ACHIEV0b		= $(ACHIEV0)_bonus
-#ACHIEV1b		= $(ACHIEV1)_bonus
-SRC_PASS		= src/
-SRCb_PASS		= src_bonus/
-OTHER_PASS		= other/
+ACHIEV			= $(PROJECT_NAME)
+ACHIEVb			= $(ACHIEV0)_bonus
+SRC_PASS		= src
+SRCb_PASS		= src_bonus
+OTHER_PASS		= other
+SHA256_PASS		= sha256_src
 SUBMIT_d		= $(PROJECT_NAME)/
 IMG				= img
+MINLIBX			= stdsrc/minilibx_mms_20200219
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
 PRINTF_od		= libftprintf_o/
 PRINTF_a		= libftprintf.a
@@ -36,41 +36,35 @@ cloneprintf :
 	cd "$(PRINTF_od)" && make submit
 	rm -rf $(PRINTF_od)
 
-submitfile : push cloneprintf
-	mkdir $(SUBMIT_d)
-#	cp -rf $(SRC_PASS)* $(SUBMIT_d)
-	cp -rf $(SRCb_PASS)* $(SUBMIT_d)
-#	cp -rf $(OTHER_PASS)* $(SUBMIT_d)
-	cp -r $(IMG) $(SUBMIT_d)
-	mv $(PRINTF_d) $(SUBMIT_d)
+submitfile : push cloneprintf file
 
 submit : outclean submitfile
+
 	mv $(SUBMIT_d) ../
 
 file : fclean cloneprintf
 	mkdir $(SUBMIT_d)
-	cp -rf $(SRC_PASS)* $(SUBMIT_d)
-	cp -rf $(SRCb_PASS)* $(SUBMIT_d)
-	cp -rf $(OTHER_PASS)* $(SUBMIT_d)
+	cp -rf $(SRC_PASS) $(SUBMIT_d)
+	cp -rf $(SRCb_PASS) $(SUBMIT_d)
+	cp -f $(OTHER_PASS)/* $(SUBMIT_d)
+	cp -rf $(SHA256_PASS) $(SUBMIT_d)
+	cp -rf $(IMG) $(SUBMIT_d)
+	cp -rf $(MINLIBX) $(SUBMIT_d)
 	mv $(PRINTF_d) $(SUBMIT_d)
 
 test : file
 	cd "$(SUBMIT_d)" && make all
 	cd "$(SUBMIT_d)" && make bonus
 	mkdir $(TEST_d)
-	cp -f $(SUBMIT_d)$(ACHIEV0) $(TEST_d)
-	cp -f $(SUBMIT_d)$(ACHIEV1) $(TEST_d)
-	cp -f $(SUBMIT_d)$(ACHIEV0b) $(TEST_d)
-	cp -f $(SUBMIT_d)$(ACHIEV1b) $(TEST_d)
+	cp -f $(SUBMIT_d)$(ACHIEV) $(TEST_d)
+	cp -f $(SUBMIT_d)$(ACHIEVb) $(TEST_d)
 
 fclean :
 	rm -rf $(SUBMIT_d)
 	rm -rf $(PRINTF_d)
 	rm -rf $(TEST_d)
-	rm -f $(ACHIEV0)
-	rm -f $(ACHIEV1)
-	rm -f $(ACHIEV0b)
-	rm -f $(ACHIEV1b)
+	rm -f $(ACHIEV)
+	rm -f $(ACHIEVb)
 
 outclean :
 	rm -rf ../$(SUBMIT_d)
