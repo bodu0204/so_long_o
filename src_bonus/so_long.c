@@ -247,6 +247,7 @@ void	get_img(t_info	*i)
 	int	buf;
 
 	i->img_0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &buf, &buf);
+	i->img_1 = mlx_xpm_file_to_image(i->mlx, FILE_1, &buf, &buf);
 	i->img_p[FRONT] = mlx_xpm_file_to_image(i->mlx, FILE_Pf, &buf, &buf);
 	i->img_p[BACK] = mlx_xpm_file_to_image(i->mlx, FILE_Pb, &buf, &buf);
 	i->img_p[LEFT] = mlx_xpm_file_to_image(i->mlx, FILE_Pl, &buf, &buf);
@@ -415,6 +416,7 @@ void Wmob(t_info *i, t_mob *m)
 void	turnp(t_info	*i, int key)
 {
 	int	able[4];
+	char	num[32];
 
 	if (key < 4)
 		reset_mob(i, &(i->mp), i->mp.to, key);
@@ -423,7 +425,16 @@ void	turnp(t_info	*i, int key)
 	item_get(i);
 	advance(i, &(i->mp), able);
 	if (able[key] && key < 4)
+	{
+		i->walk++;
+		itosu(num, i->walk);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 0* BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 1* BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 2* BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 3* BLOCKLEN, 0);
+		mlx_string_put(i->mlx, i->win, 0, 12, 0xFFECE1, num);
 		go_straight(i, &(i->mp));
+	}
 	return ;
 }
 
@@ -736,7 +747,6 @@ void	w_win(t_info	*i)
 			j = f_presence(i, m);
 			if (j)
 				mlx_put_image_to_window(i->mlx, i->win, i->img_w[j], m->nowx, m->nowy);
-//* test */mlx_put_image_to_window(i->mlx, i->win, i->img_w[9], m->nowx, m->nowy);
 		}
 		m = m->next;
 	}
@@ -961,5 +971,32 @@ void	fale_win(t_info *i)
 	mlx_put_image_to_window(i->mlx, i->win, img, x, y);
 	mlx_destroy_image(i->mlx, img);
 	return ;
+	return ;
+}
+
+void	itosu(char	*str, unsigned int	n)
+{
+	char			*num;
+	unsigned int	nn;
+	int				i;
+
+	if (n == 0)
+	{
+		*str = '0';
+		return ;
+	}
+	num = "0123456789";
+	nn = 1;
+	while (n / nn >= 10)
+		nn *= 10;
+	while (nn > 0)
+	{
+		i = n / nn;
+		*str = *(num + i);
+		str++;
+		n -= i * nn;
+		nn /= 10;
+	}
+	*str = '\0';
 	return ;
 }

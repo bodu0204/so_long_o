@@ -30,6 +30,7 @@ typedef struct s_info
 	t_mob	*mw;
 	size_t	walk;
 	void	*img_0;
+	void	*img_1;
 	void	*img_p[4];
 	void	*img_c;
 	void	*img_e;
@@ -94,32 +95,32 @@ typedef struct s_info
 
 
 
-void check_arg(int argc, char *argv[]);
-void get_map(t_info *i, char *name);
+void	check_arg(int argc, char *argv[]);
+void	get_map(t_info *i, char *name);
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s);
 void	convert_map(t_info	*i);
 void	check_map(t_info	*i);
-int is_map_elem(char elm, size_t c, size_t	w, size_t	h);
+int		is_map_elem(char elm, size_t c, size_t	w, size_t	h);
 void	set_mob(t_info	*i);
 void	reset_mob(t_info	*i, t_mob *m, size_t c, int d);
 void	set_Wmob(t_info	*i, size_t c);
 void	get_img(t_info	*i);
 void	set_win(t_info	*i);
 void	base_win(t_info	*i);
-int game_main(void *p);
+int		game_main(void *p);
 void	game_process(t_info	*i);
 void	turnw(t_info	*i);
-void Wmob(t_info *i, t_mob *m);
+void	Wmob(t_info *i, t_mob *m);
 void	turnp(t_info	*i, int key);
 void	item_get(t_info	*i);
-void go_straight(t_info	*i, t_mob *m);
-void m_killer(t_info	*i, t_mob	*m);
-size_t distance(t_mob	*m1, t_mob	*m2);
+void	go_straight(t_info	*i, t_mob *m);
+void	m_killer(t_info	*i, t_mob	*m);
+size_t	distance(t_mob	*m1, t_mob	*m2);
 void	advance(t_info	*i, t_mob	*m, int	*able);
-void next_direct(t_info	*i, t_mob *m, int *able);
-void move(t_info	*i);
-void clean_win(t_info	*i);
-void move_mob(t_info	*i, t_mob	*m);
+void	next_direct(t_info	*i, t_mob *m, int *able);
+void	move(t_info	*i);
+void	clean_win(t_info	*i);
+void	move_mob(t_info	*i, t_mob	*m);
 void	move_result(t_info	*i);
 t_mob	*rm_w(t_mob *start);
 void	e_win(t_info	*i);
@@ -127,15 +128,16 @@ void	p_win(t_info	*i);
 void	w_win(t_info	*i);
 size_t	f_presence(t_info	*i, t_mob *m);
 void	c_win(t_info	*i);
-int set_gkey(int	key, void	*p);
-int	rm_gkey(int	key, void	*p);
+int		set_gkey(int	key, void	*p);
+int		rm_gkey(int	key, void	*p);
 void	error_exit(char *msg);
 void	file_error(char *must_free);
-void frree_content(t_info *i);
+void	frree_content(t_info *i);
 int		end_game(void *p);
 int		my_rand(u_int8_t *base);
 void	success_win(t_info *i);
 void	fale_win(t_info *i);
+void	itosu(char	*str, unsigned int	n);
 
 
 void		sha256(const void *data, size_t len, uint8_t *hash);
