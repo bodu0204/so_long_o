@@ -73,6 +73,8 @@ typedef struct s_info
 #define FILE_W08	"img/book080.xpm"
 #define FILE_W09	"img/book100.xpm"
 #define FILE_W10	"img/book999.xpm"
+#define FILE_HAPPY	"img/happy_end.xpm"
+#define FILE_BAD	"img/bad_end.xpm"
 
 #define FRONT 0
 #define RIGHT 1

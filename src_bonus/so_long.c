@@ -24,23 +24,19 @@ int main(int argc, char *argv[])
 {
 	t_info i;
 
-TEST
 	ft_bzero(&i, sizeof(t_info));
+	i.newkey = NO_KEY;
 	check_arg(argc, argv);
 	get_map(&i, argv[1]);
 	i.mlx = mlx_init();
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
 	get_img(&i);
-TEST
 	base_win(&i);
-TEST
 	set_win(&i);
-TEST
 	mlx_loop_hook(i.mlx, game_main, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, &i);
 	mlx_hook(i.win, 3, 0, rm_gkey, &i);
 	mlx_hook(i.win, 17, 0, end_game, &i);
-TEST
 	mlx_loop(i.mlx);
 	return (0);
 }
@@ -209,7 +205,8 @@ void	reset_mob(t_info	*i, t_mob *m, size_t c, int d)
 	m->to = c;
 	m->nowx = (c % i->map_w) * BLOCKLEN;
 	m->nowy = (c / i->map_w) * BLOCKLEN;
-	m->direct = d % 4;
+	if (m->direct < 4)
+		m->direct = d % 4;
 	return ;
 }
 
@@ -223,6 +220,7 @@ void	set_Wmob(t_info	*i, size_t c)
 	{
 		while(i->mw)
 		{
+TEST
 			new = i->mw;
 			i->mw = i->mw->next;
 			free(new);
@@ -230,6 +228,7 @@ void	set_Wmob(t_info	*i, size_t c)
 TEST
 		file_error(i->map_c);
 	}
+	new->next = NULL;
 	reset_mob(i, new, c, my_rand(i->buf));
 	last = i->mw;
 	if (!last)
@@ -247,8 +246,6 @@ void	get_img(t_info	*i)
 {
 	int	buf;
 
-TESTp(i->mlx)
-TESTn(open(FILE_0, O_RDONLY))
 	i->img_0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &buf, &buf);
 	i->img_p[FRONT] = mlx_xpm_file_to_image(i->mlx, FILE_Pf, &buf, &buf);
 	i->img_p[BACK] = mlx_xpm_file_to_image(i->mlx, FILE_Pb, &buf, &buf);
@@ -267,41 +264,6 @@ TESTn(open(FILE_0, O_RDONLY))
 	i->img_w[8] = mlx_xpm_file_to_image(i->mlx, FILE_W08, &buf, &buf);
 	i->img_w[9] = mlx_xpm_file_to_image(i->mlx, FILE_W09, &buf, &buf);
 	i->img_w[10] = mlx_xpm_file_to_image(i->mlx, FILE_W10, &buf, &buf);
-TESTp(FILE_0)
-TESTp(FILE_Pf)
-TESTp(FILE_Pb)
-TESTp(FILE_Pl)
-TESTp(FILE_Pr)
-TESTp(FILE_C)
-TESTp(FILE_E)
-TESTp(FILE_W01)
-TESTp(FILE_W02)
-TESTp(FILE_W03)
-TESTp(FILE_W04)
-TESTp(FILE_W05)
-TESTp(FILE_W06)
-TESTp(FILE_W07)
-TESTp(FILE_W08)
-TESTp(FILE_W09)
-TESTp(FILE_W10)
-TESTp(i->img_0)
-TESTp(i->img_p[FRONT])
-TESTp(i->img_p[BACK] )
-TESTp(i->img_p[LEFT] )
-TESTp(i->img_p[RIGHT])
-TESTp(i->img_c)
-TESTp(i->img_e)
-TESTp(i->img_w[0])
-TESTp(i->img_w[1])
-TESTp(i->img_w[2])
-TESTp(i->img_w[3])
-TESTp(i->img_w[4])
-TESTp(i->img_w[5])
-TESTp(i->img_w[6])
-TESTp(i->img_w[7])
-TESTp(i->img_w[8])
-TESTp(i->img_w[9])
-TESTp(i->img_w[10])
 	return ;
 }
 
@@ -328,38 +290,48 @@ void	set_win(t_info	*i)
 	return ;
 }
 
+void	base_win1(t_info	*i);
 void	base_win(t_info	*i)
 {
 	size_t	j;
 	int		buf;
-	void	*imgA;
-	void	*imgB;
+	void	*img0;
+	void	*img1;
 
-	imgA = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
-	imgB = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
+	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
+	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
 	j = 0;
-TESTp(imgA)
-TESTp(imgB)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == '1')
-			mlx_put_image_to_window(i->mlx, i->win, imgB, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else
-			mlx_put_image_to_window(i->mlx, i->win, imgA, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
-TESTp(imgA)
-TESTp(imgB)
-	mlx_destroy_image(i->mlx, imgA);
-	mlx_destroy_image(i->mlx, imgB);
-TESTp(imgA)
-TESTp(imgB)
-	imgA = mlx_xpm_file_to_image(i->mlx, FILE_M, &buf, &buf);
-	imgB = mlx_xpm_file_to_image(i->mlx, FILE_F, &buf, &buf);
-	mlx_put_image_to_window(i->mlx, i->win, imgB, (i->mm % i->map_w) * BLOCKLEN, (i->mm / i->map_w) * BLOCKLEN);
-	mlx_put_image_to_window(i->mlx, i->win, imgB, (i->mf % i->map_w) * BLOCKLEN, (i->mf / i->map_w) * BLOCKLEN);
-	mlx_destroy_image(i->mlx, imgA);
-	mlx_destroy_image(i->mlx, imgB);
+	mlx_destroy_image(i->mlx, img0);
+	mlx_destroy_image(i->mlx, img1);
+	base_win1(i);
+	return ;
+}
+
+void	base_win1(t_info	*i)
+{
+	int		buf;
+	void	*img;
+
+	if (i->mm)
+	{
+		img = mlx_xpm_file_to_image(i->mlx, FILE_M, &buf, &buf);
+		mlx_put_image_to_window(i->mlx, i->win, img, (i->mm % i->map_w) * BLOCKLEN, (i->mm / i->map_w) * BLOCKLEN);
+		mlx_destroy_image(i->mlx, img);
+	}
+	if (i->mf)
+	{
+		img = mlx_xpm_file_to_image(i->mlx, FILE_F, &buf, &buf);
+		mlx_put_image_to_window(i->mlx, i->win, img, (i->mf % i->map_w) * BLOCKLEN, (i->mf / i->map_w) * BLOCKLEN);
+		mlx_destroy_image(i->mlx, img);
+	}
 	return ;
 }
 
@@ -434,6 +406,7 @@ void Wmob(t_info *i, t_mob *m)
 
 	reset_mob(i, m, m->to, m->direct);
 	advance(i, m, able);
+
 	next_direct(i, m, able);
 	go_straight(i, m);
 	return ;
@@ -443,15 +416,13 @@ void	turnp(t_info	*i, int key)
 {
 	int	able[4];
 
-	if (key >= 4)
-	{
+	if (key < 4)
+		reset_mob(i, &(i->mp), i->mp.to, key);
+	else
 		reset_mob(i, &(i->mp), i->mp.to, i->mp.direct);
-		return ;
-	}
-	reset_mob(i, &(i->mp), i->mp.to, key);
 	item_get(i);
 	advance(i, &(i->mp), able);
-	if (able[key])
+	if (able[key] && key < 4)
 		go_straight(i, &(i->mp));
 	return ;
 }
@@ -472,13 +443,13 @@ void go_straight(t_info	*i, t_mob *m)
 {
 	int	c;
 
-	if (i->key == RIGHT)
+	if (m->direct == RIGHT)
 		c = 1;
-	else if (i->key == FRONT)
+	else if (m->direct == FRONT)
 		c = i->map_w * -1;
-	else if (i->key == LEFT)
+	else if (m->direct == LEFT)
 		c = -1;
-	else if(i->key == RIGHT)
+	else if(m->direct == BACK)
 		c = i->map_w;
 	else
 		c = 0;
@@ -493,7 +464,7 @@ void m_killer(t_info	*i, t_mob	*m)
 	size_t	mx;
 	size_t	my;
 
-	if (!i->mm)
+	if (!i->mm || m->direct >= DEAD)
 		return ;
 	mx = (i->mm % i->map_w) * BLOCKLEN;
 	my = (i->mm / i->map_w) * BLOCKLEN;
@@ -505,7 +476,7 @@ void m_killer(t_info	*i, t_mob	*m)
 		my = i->mp.nowy - my;
 	else
 		my -= i->mp.nowy;
-	if (my < mx)
+	if (my > mx)
 		mx = my;
 	if (mx > BLOCKLEN)
 		return;
@@ -529,7 +500,7 @@ void m_killer1(t_info	*i, t_mob	*m)
 		my = m->nowy - my;
 	else
 		my -= m->nowy;
-	if (my < mx)
+	if (my > mx)
 		mx = my;
 	if (mx <= BLOCKLEN)
 		m->direct = DEAD;
@@ -549,7 +520,7 @@ size_t distance(t_mob	*m1, t_mob	*m2)
 		y = m1->nowy - m2->nowy;
 	else
 		y = m2->nowy - m1->nowy;
-	if (x < y)
+	if (x > y)
 		return (x);
 	return (y);
 }
@@ -687,7 +658,7 @@ void	move_result(t_info	*i)
 	m = i->mw;
 	while (m)
 	{
-		if (distance(m, &(i->mp)) < DEATHLEN && i->situ != SUCCESS)
+		if (m->direct < DEAD && distance(m, &(i->mp)) < DEATHLEN && i->situ != SUCCESS)
 		{
 			i->situ = FALE;
 			break ;
@@ -755,7 +726,7 @@ void	w_win(t_info	*i)
 	{
 		if (m->direct >= DEAD)
 		{
-			if (m->direct % 2)
+			if (m->direct % 8 < 4)
 				mlx_put_image_to_window(i->mlx, i->win, i->img_w[9], m->nowx, m->nowy);
 			else
 				mlx_put_image_to_window(i->mlx, i->win, i->img_w[10], m->nowx, m->nowy);
@@ -765,6 +736,7 @@ void	w_win(t_info	*i)
 			j = f_presence(i, m);
 			if (j)
 				mlx_put_image_to_window(i->mlx, i->win, i->img_w[j], m->nowx, m->nowy);
+//* test */mlx_put_image_to_window(i->mlx, i->win, i->img_w[9], m->nowx, m->nowy);
 		}
 		m = m->next;
 	}
@@ -789,7 +761,7 @@ size_t	f_presence(t_info	*i, t_mob *m)
 		fy = i->mp.nowy - fy;
 	else
 		fy -= i->mp.nowy;
-	if (fy < fx)
+	if (fy > fx)
 		fx = fy;
 	return (f_presence1(i, m, fx));
 }
@@ -809,8 +781,10 @@ size_t	f_presence1(t_info	*i, t_mob *m, size_t	fp)
 		fy = m->nowy - fy;
 	else
 		fy -= m->nowy;
-	if (fy < fx)
+	if (fy > fx)
 		fx = fy;
+	if (!fx)
+		fx = 1;
 	if ((fp / BLOCKLEN) > 5)
 		fp = 1;
 	else
@@ -841,7 +815,6 @@ int set_gkey(int	key, void	*p)
 {
 	t_info	*i;
 	i = p;
-TESTn(key)
 	if (key == 0 || key == 123)
 		i->newkey = LEFT;
 	else if (key == 1 || key == 125)
@@ -918,8 +891,10 @@ int		end_game(void *p)
 	t_info *i;
 
 	i = p;
-	frree_content(i);
-	exit(0);
+	if (i->situ != END)
+		frree_content(i);
+	mlx_destroy_window(i->mlx, i->win);
+	exit(1);
 	return (0);
 }
 
@@ -942,14 +917,49 @@ int		my_rand(u_int8_t *base)
 
 void	success_win(t_info *i)
 {
+	size_t	x;
+	size_t	y;
+	void	*img;
+	int		buf;
+
 	frree_content(i);
-TEST
+	x = i->map_w * BLOCKLEN;
+	y = i->map_h * BLOCKLEN;
+	if (x < 300)
+		x = 0;
+	else
+		x = (x - 300) / 2;
+	if (y < 300)
+		y = 0;
+	else
+		y = (y - 300) / 2;
+	img = mlx_xpm_file_to_image(i->mlx, FILE_HAPPY, &buf, &buf);
+	mlx_put_image_to_window(i->mlx, i->win, img, x, y);
+	mlx_destroy_image(i->mlx, img);
 	return ;
 }
 
 void	fale_win(t_info *i)
 {
+	size_t	x;
+	size_t	y;
+	void	*img;
+	int		buf;
+
 	frree_content(i);
-TEST
+	x = i->map_w * BLOCKLEN;
+	y = i->map_h * BLOCKLEN;
+	if (x < 300)
+		x = 0;
+	else
+		x = (x - 300) / 2;
+	if (y < 300)
+		y = 0;
+	else
+		y = (y - 300) / 2;
+	img = mlx_xpm_file_to_image(i->mlx, FILE_BAD, &buf, &buf);
+	mlx_put_image_to_window(i->mlx, i->win, img, x, y);
+	mlx_destroy_image(i->mlx, img);
+	return ;
 	return ;
 }
