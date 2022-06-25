@@ -28,6 +28,7 @@ typedef struct s_info
 	size_t	mf;
 	t_mob	mp;
 	t_mob	*mw;
+	size_t	walk;
 	void	*img_0;
 	void	*img_p[4];
 	void	*img_c;
@@ -50,11 +51,12 @@ typedef struct s_info
 #define DEATHLEN 10
 #define MAMLEN 30
 #define DADLEN 150
-
 #define TURN (WEIFHT / BLOCKLEN)
+
 #define FILE_0b		"img/floor_bonus_big.xpm"
 #define FILE_1b		"img/wall_big.xpm"
 #define FILE_0		"img/floor_bonus.xpm"
+#define FILE_1		"img/wall.xpm"
 #define FILE_Pf		"img/anya3.xpm"
 #define FILE_Pb		"img/anya0.xpm"
 #define FILE_Pl		"img/anya1.xpm"
