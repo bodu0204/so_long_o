@@ -1,6 +1,6 @@
 PROJECT_NAME	= so_long
 ACHIEV			= $(PROJECT_NAME)
-ACHIEVb			= $(ACHIEV0)_bonus
+ACHIEVb			= $(ACHIEV)_bonus
 SRC_PASS		= src
 SRCb_PASS		= src_bonus
 OTHER_PASS		= other
@@ -14,17 +14,18 @@ PRINTF_a		= libftprintf.a
 PRINTF_d		= libftprintf/
 TEST_d			= test_case_0/
 
-all : $(NAME)
+all : $(ACHIEV)
 
-$(NAME) : file
+$(ACHIEV) : file
 	cd "$(SUBMIT_d)" && make all
-	cp -f $(ACHIEV0) ./
-	cp -f $(ACHIEV1) ./
+	mv -f $(SUBMIT_d)$(ACHIEV) $(SUBMIT_d)$(ACHIEV).e
+	cp -f $(SUBMIT_d)$(ACHIEV).e ./
 
-bonus : file
+bonus : $(ACHIEVb)
+
+$(ACHIEVb) : file
 	cd "$(SUBMIT_d)" && make bonus
-	cp -f $(ACHIEV0b) ./
-	cp -f $(ACHIEV1b) ./
+	cp -f $(SUBMIT_d)$(ACHIEVb) ./
 
 push : fclean
 	git add .
@@ -39,7 +40,6 @@ cloneprintf :
 submitfile : push cloneprintf file
 
 submit : outclean submitfile
-
 	mv $(SUBMIT_d) ../
 
 file : fclean cloneprintf

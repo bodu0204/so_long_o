@@ -24,18 +24,23 @@ int main(int argc, char *argv[])
 {
 	t_info i;
 
+TEST
 	ft_bzero(&i, sizeof(t_info));
 	check_arg(argc, argv);
 	get_map(&i, argv[1]);
-	get_img(&i);
 	i.mlx = mlx_init();
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
+	get_img(&i);
+TEST
 	base_win(&i);
+TEST
 	set_win(&i);
-	mlx_loop_hook(i.mlx, game_process, &i);
+TEST
+	mlx_loop_hook(i.mlx, game_main, &i);
 	mlx_hook(i.win, 2, 0, set_gkey, &i);
 	mlx_hook(i.win, 3, 0, rm_gkey, &i);
 	mlx_hook(i.win, 17, 0, end_game, &i);
+TEST
 	mlx_loop(i.mlx);
 	return (0);
 }
@@ -110,7 +115,10 @@ void	convert_map(t_info	*i)
 		if (l == j)
 			i->map_w = l;
 		if (i->map_w != l || i->map_c[j] != '\n')
-			file_error();
+{
+TEST
+			file_error(i->map_c);
+}
 		i->map_h++;
 		j++;
 	}
@@ -125,41 +133,62 @@ void	check_map(t_info	*i)
 	ft_bzero(m, sizeof(size_t) * 5);
 	while (i->map_c[m[0]])
 	{
-		is_map_elem(i->map_c[m[0]], m[0], i->map_w, i->map_h);
-		if (i->map_c[m[0]] != 'E')
+		if (is_map_elem(i->map_c[m[0]], m[0], i->map_w, i->map_h))
+{
+TEST
+			file_error(i->map_c);
+}
+		if (i->map_c[m[0]] == 'E')
 			m[1]++;
-		else if (i->map_c[m[0]] != 'C')
+		else if (i->map_c[m[0]] == 'C')
 			i->item++;
-		else if (i->map_c[m[0]] != 'P')
+		else if (i->map_c[m[0]] == 'P')
 			m[2]++;
-		else if (i->map_c[m[0]] != 'M')
+		else if (i->map_c[m[0]] == 'M')
 			m[3]++;
-		else if (i->map_c[m[0]] != 'F')
+		else if (i->map_c[m[0]] == 'F')
 			m[4]++;
 		m[0]++;
 	}
 	if (!m[1] || !i->item || !m[2] || m[2] > 1 || m[3] > 1 || m[4] > 1)
-		file_error();
+{
+TESTn(m[1])
+TESTn(m[2])
+TESTn(m[3])
+TESTn(m[4])
+			file_error(i->map_c);
+}
 	return ;
 }
 
-void is_map_elem(char elm, size_t c, size_t	w, size_t	h)
+int is_map_elem(char elm, size_t c, size_t	w, size_t	h)
 {
+if (c % w == 0 && elm != '1')
+TESTn(c % w == 0 && elm != '1')
+if (c % w == w - 1 && elm != '1')
+TESTn(c % w == w - 1 && elm != '1')
+if (c < w - 1 && elm != '1')
+TESTn(c < w - 1 && elm != '1')
+if (c > w * (h - 1) && elm != '1')
+TESTn(c > w * (h - 1) && elm != '1')
+if (elm != '0' && elm != '1' && elm != 'E' && elm != 'C' && elm != 'P' && elm != 'W' && elm != 'M' && elm != 'F')
+TESTn(elm != '0' && elm != '1' && elm != 'E' && elm != 'C' && elm != 'P' && elm != 'W' && elm != 'M' && elm != 'F')
+
 	if ((c % w == 0 && elm != '1') \
 	|| (c % w == w - 1 && elm != '1') \
 	|| (c < w - 1 && elm != '1') \
 	|| (c > w * (h - 1) && elm != '1') \
-	|| (c != '0' && c != '1' && c != 'E' && c != 'C' \
-		&& c != 'P' && c != 'W' && c != 'M' && c != 'F'))
-		file_error();
-	return ;
+	|| (elm != '0' && elm != '1' && elm != 'E' && elm != 'C' \
+		&& elm != 'P' && elm != 'W' && elm != 'M' && elm != 'F'))
+		return (1);
+	return (0);
 }
 
 void	set_mob(t_info	*i)
 {
 	size_t	j;
 
-	j == 0;
+	j = 0;
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == 'P')
@@ -198,7 +227,8 @@ void	set_Wmob(t_info	*i, size_t c)
 			i->mw = i->mw->next;
 			free(new);
 		}
-		file_error();
+TEST
+		file_error(i->map_c);
 	}
 	reset_mob(i, new, c, my_rand(i->buf));
 	last = i->mw;
@@ -206,7 +236,7 @@ void	set_Wmob(t_info	*i, size_t c)
 		i->mw = new;
 	else
 	{
-		while(!(last->next))
+		while(last->next)
 			last = last->next;
 		last->next = new;
 	}
@@ -217,6 +247,8 @@ void	get_img(t_info	*i)
 {
 	int	buf;
 
+TESTp(i->mlx)
+TESTn(open(FILE_0, O_RDONLY))
 	i->img_0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &buf, &buf);
 	i->img_p[FRONT] = mlx_xpm_file_to_image(i->mlx, FILE_Pf, &buf, &buf);
 	i->img_p[BACK] = mlx_xpm_file_to_image(i->mlx, FILE_Pb, &buf, &buf);
@@ -235,6 +267,41 @@ void	get_img(t_info	*i)
 	i->img_w[8] = mlx_xpm_file_to_image(i->mlx, FILE_W08, &buf, &buf);
 	i->img_w[9] = mlx_xpm_file_to_image(i->mlx, FILE_W09, &buf, &buf);
 	i->img_w[10] = mlx_xpm_file_to_image(i->mlx, FILE_W10, &buf, &buf);
+TESTp(FILE_0)
+TESTp(FILE_Pf)
+TESTp(FILE_Pb)
+TESTp(FILE_Pl)
+TESTp(FILE_Pr)
+TESTp(FILE_C)
+TESTp(FILE_E)
+TESTp(FILE_W01)
+TESTp(FILE_W02)
+TESTp(FILE_W03)
+TESTp(FILE_W04)
+TESTp(FILE_W05)
+TESTp(FILE_W06)
+TESTp(FILE_W07)
+TESTp(FILE_W08)
+TESTp(FILE_W09)
+TESTp(FILE_W10)
+TESTp(i->img_0)
+TESTp(i->img_p[FRONT])
+TESTp(i->img_p[BACK] )
+TESTp(i->img_p[LEFT] )
+TESTp(i->img_p[RIGHT])
+TESTp(i->img_c)
+TESTp(i->img_e)
+TESTp(i->img_w[0])
+TESTp(i->img_w[1])
+TESTp(i->img_w[2])
+TESTp(i->img_w[3])
+TESTp(i->img_w[4])
+TESTp(i->img_w[5])
+TESTp(i->img_w[6])
+TESTp(i->img_w[7])
+TESTp(i->img_w[8])
+TESTp(i->img_w[9])
+TESTp(i->img_w[10])
 	return ;
 }
 
@@ -263,7 +330,7 @@ void	set_win(t_info	*i)
 
 void	base_win(t_info	*i)
 {
-	ize_t	j;
+	size_t	j;
 	int		buf;
 	void	*imgA;
 	void	*imgB;
@@ -271,6 +338,8 @@ void	base_win(t_info	*i)
 	imgA = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
 	imgB = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
 	j = 0;
+TESTp(imgA)
+TESTp(imgB)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == '1')
@@ -279,8 +348,12 @@ void	base_win(t_info	*i)
 			mlx_put_image_to_window(i->mlx, i->win, imgA, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
+TESTp(imgA)
+TESTp(imgB)
 	mlx_destroy_image(i->mlx, imgA);
 	mlx_destroy_image(i->mlx, imgB);
+TESTp(imgA)
+TESTp(imgB)
 	imgA = mlx_xpm_file_to_image(i->mlx, FILE_M, &buf, &buf);
 	imgB = mlx_xpm_file_to_image(i->mlx, FILE_F, &buf, &buf);
 	mlx_put_image_to_window(i->mlx, i->win, imgB, (i->mm % i->map_w) * BLOCKLEN, (i->mm / i->map_w) * BLOCKLEN);
@@ -345,7 +418,7 @@ void	turnw(t_info	*i)
 {
 	t_mob	*m;
 
-	m = i->mw
+	m = i->mw;
 	while (m)
 	{
 		Wmob(i, m);
@@ -361,7 +434,7 @@ void Wmob(t_info *i, t_mob *m)
 
 	reset_mob(i, m, m->to, m->direct);
 	advance(i, m, able);
-	next_direct(m, able);
+	next_direct(i, m, able);
 	go_straight(i, m);
 	return ;
 }
@@ -379,18 +452,18 @@ void	turnp(t_info	*i, int key)
 	item_get(i);
 	advance(i, &(i->mp), able);
 	if (able[key])
-		go_straight(i, m);
+		go_straight(i, &(i->mp));
 	return ;
 }
 
 void	item_get(t_info	*i)
 {
-	if (i->map_c[i->mp] == 'C')
+	if (i->map_c[i->mp.to] == 'C')
 	{
 		i->item--;
-		i->map_c[i->mp] = '0';
+		i->map_c[i->mp.to] = '0';
 	}
-	else if (i->map_c[i->mp] == 'E' && !(i->item))
+	else if (i->map_c[i->mp.to] == 'E' && !(i->item))
 		i->situ = SUCCESS;
 	return ;
 }
@@ -399,13 +472,13 @@ void go_straight(t_info	*i, t_mob *m)
 {
 	int	c;
 
-	if (key == RIGHT)
+	if (i->key == RIGHT)
 		c = 1;
-	else if (key == FRONT)
+	else if (i->key == FRONT)
 		c = i->map_w * -1;
-	else if (key == LEFT)
+	else if (i->key == LEFT)
 		c = -1;
-	else if(key == RIGHT)
+	else if(i->key == RIGHT)
 		c = i->map_w;
 	else
 		c = 0;
@@ -413,11 +486,15 @@ void go_straight(t_info	*i, t_mob *m)
 	return ;
 }
 
+
+void m_killer1(t_info	*i, t_mob	*m);
 void m_killer(t_info	*i, t_mob	*m)
 {
 	size_t	mx;
 	size_t	my;
 
+	if (!i->mm)
+		return ;
 	mx = (i->mm % i->map_w) * BLOCKLEN;
 	my = (i->mm / i->map_w) * BLOCKLEN;
 	if (mx < i->mp.nowx)
@@ -433,7 +510,7 @@ void m_killer(t_info	*i, t_mob	*m)
 	if (mx > BLOCKLEN)
 		return;
 	else
-		m_killer1();
+		m_killer1(i, m);
 	return ;
 }
 
@@ -459,7 +536,7 @@ void m_killer1(t_info	*i, t_mob	*m)
 	return;
 }
 
-size_t distance(t_info	*i, t_mob	*m1, t_mob	*m2)
+size_t distance(t_mob	*m1, t_mob	*m2)
 {
 	size_t	x;
 	size_t	y;
@@ -493,7 +570,8 @@ void	advance(t_info	*i, t_mob	*m, int	*able)
 	return ;
 }
 
-void next_direct(t_mob *m, int *able)
+void next_direct1(t_info	*i, t_mob	*m, int *able);
+void next_direct(t_info	*i, t_mob *m, int *able)
 {
 	if (m->direct >= 4)
 		return ;
@@ -516,11 +594,11 @@ void next_direct(t_mob *m, int *able)
 			m->direct = m->direct;
 	}
 	else
-		radvance1(m, able);
+		next_direct1(i, m, able);
 	return ;
 }
 
-void next_direct1(t_mob	*m, int *able)
+void next_direct1(t_info	*i, t_mob	*m, int *able)
 {
 	if (able[(m->direct + 3) % 4] || able[(m->direct + 1) % 4])
 	{
@@ -551,7 +629,7 @@ void move(t_info	*i)
 	while(m)
 	{
 		move_mob(i,m);
-		m = m->next
+		m = m->next;
 	}
 	move_result(i);
 	e_win(i);
@@ -609,7 +687,7 @@ void	move_result(t_info	*i)
 	m = i->mw;
 	while (m)
 	{
-		if (distance(i, m, &(i->mp)) < DEATHLEN && i->situ != SUCCESS)
+		if (distance(m, &(i->mp)) < DEATHLEN && i->situ != SUCCESS)
 		{
 			i->situ = FALE;
 			break ;
@@ -625,7 +703,7 @@ t_mob	*rm_w(t_mob *start)
 	t_mob *mn;
 
 	if (!start)
-		return ;
+		return (NULL);
 	m = start;
 	while(m->next)
 	{
@@ -636,7 +714,7 @@ t_mob	*rm_w(t_mob *start)
 			free(mn);
 		}
 		else
-			m = m->next
+			m = m->next;
 	}
 	if (start->direct >= DEAD + BLOCKLEN)
 	{
@@ -670,7 +748,7 @@ void	p_win(t_info	*i)
 void	w_win(t_info	*i)
 {
 	t_mob *m;
-	size_t i;
+	size_t j;
 
 	m = i->mw;
 	while (m)
@@ -684,20 +762,23 @@ void	w_win(t_info	*i)
 		}
 		else
 		{
-			i = f_presence(i, m);
-			if (i)
-				mlx_put_image_to_window(i->mlx, i->win, i->img_w[i], m->nowx, m->nowy);
+			j = f_presence(i, m);
+			if (j)
+				mlx_put_image_to_window(i->mlx, i->win, i->img_w[j], m->nowx, m->nowy);
 		}
 		m = m->next;
 	}
 	return ;
 }
 
+size_t	f_presence1(t_info	*i, t_mob *m, size_t	fp);
 size_t	f_presence(t_info	*i, t_mob *m)
 {
 	size_t	fx;
 	size_t	fy;
 
+	if (!i->mf)
+		return (f_presence1(i, m, 5 * BLOCKLEN));
 	fx = (i->mf % i->map_w) * BLOCKLEN;
 	fy = (i->mf / i->map_w) * BLOCKLEN;
 	if (fx < i->mp.nowx)
@@ -781,6 +862,7 @@ int	rm_gkey(int	key, void	*p)
 	t_info	*i;
 	i = p;
 
+	(void)key;
 	i->newkey = NO_KEY;
 	return(0);
 }
@@ -825,7 +907,7 @@ void frree_content(t_info *i)
 	m = i->mw;
 	while (m)
 	{
-		free(n);
+		free(m);
 		m = m->next;
 	}
 	return ;
@@ -843,7 +925,6 @@ int		end_game(void *p)
 
 int		my_rand(u_int8_t *base)
 {
-	size_t	i;
 	int		r;
 
 	base[0] &= 0x7;
@@ -854,7 +935,7 @@ int		my_rand(u_int8_t *base)
 	}
 	ft_memcpy(&r, base + 1 + base[0], sizeof(int));
 	if (r < 0)
-		r = (r + 1) * -1
+		r = (r + 1) * -1;
 	base[0]++;
 	return (r);
 }

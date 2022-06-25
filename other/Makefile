@@ -16,7 +16,8 @@ SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
 MINLIBX			= libmlx.dylib
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -Imlx
+LFLAGS			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
 PRINTF_od		= ftprintf_o/
 PRINTF_d		= libftprintf/
@@ -26,19 +27,20 @@ all : $(ACHIEV)
 
 $(NAME) : all
 
-$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(SHA256_d)$(SHA256_h) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX_d)$(MINLIBX)
-	$(CC) $(CFLAGS) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX_d)$(MINLIBX) -o $(ACHIEV)
+$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(SHA256_d)$(SHA256_h) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX)
+	$(CC) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX) -o $(ACHIEV)
 
 $(ACHIEVb) : $(PRINTF_a) $(SRCb_d)$(HEDERb) $(SHA256_d)$(SHA256_h) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX)
-	$(CC) $(CFLAGS) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX_d)$(MINLIBX) -o $(ACHIEVb)
+	$(CC) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX) -o $(ACHIEVb)
 
 bonus : $(ACHIEVb)
 
 .c.o :
 	$(CC) $(CFLAGS) -c $< -o $(basename $<).o
 
-$(MINLIBX_d)$(MINLIBX) :
+$(MINLIBX) :
 	cd "$(MINLIBX_d)" && make
+	cp -f $(MINLIBX_d)$(MINLIBX) ./
 
 $(PRINTF_d) :
 	rm -rf $(PRINTF_d)
