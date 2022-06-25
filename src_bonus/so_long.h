@@ -96,52 +96,64 @@ typedef struct s_info
 
 
 void	check_arg(int argc, char *argv[]);
+//setmap
 void	get_map(t_info *i, char *name);
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s);
 void	convert_map(t_info	*i);
 void	check_map(t_info	*i);
+//setmaputil
 int		is_map_elem(char elm, size_t c, size_t	w, size_t	h);
 void	set_mob(t_info	*i);
 void	reset_mob(t_info	*i, t_mob *m, size_t c, int d);
 void	set_Wmob(t_info	*i, size_t c);
+//window
 void	get_img(t_info	*i);
 void	set_win(t_info	*i);
 void	base_win(t_info	*i);
+//game
 int		game_main(void *p);
 void	game_process(t_info	*i);
+//disideW
 void	turnw(t_info	*i);
 void	Wmob(t_info *i, t_mob *m);
+void	next_direct(t_info	*i, t_mob *m, int *able);
+//disideP
 void	turnp(t_info	*i, int key);
 void	item_get(t_info	*i);
-void	go_straight(t_info	*i, t_mob *m);
-void	m_killer(t_info	*i, t_mob	*m);
-size_t	distance(t_mob	*m1, t_mob	*m2);
-void	advance(t_info	*i, t_mob	*m, int	*able);
-void	next_direct(t_info	*i, t_mob *m, int *able);
+//exqute
 void	move(t_info	*i);
 void	clean_win(t_info	*i);
 void	move_mob(t_info	*i, t_mob	*m);
 void	move_result(t_info	*i);
 t_mob	*rm_w(t_mob *start);
+//exqute_util
+void	go_straight(t_info	*i, t_mob *m);
+void	m_killer(t_info	*i, t_mob	*m);
+size_t	distance(t_mob	*m1, t_mob	*m2);
+void	advance(t_info	*i, t_mob	*m, int	*able);
+//dosplay
 void	e_win(t_info	*i);
 void	p_win(t_info	*i);
 void	w_win(t_info	*i);
 size_t	f_presence(t_info	*i, t_mob *m);
 void	c_win(t_info	*i);
-int		set_gkey(int	key, void	*p);
-int		rm_gkey(int	key, void	*p);
+//ending
+void	success_win(t_info *i);
+void	fale_win(t_info *i);
+//util
 void	error_exit(char *msg);
 void	file_error(char *must_free);
 void	frree_content(t_info *i);
 int		end_game(void *p);
-int		my_rand(u_int8_t *base);
-void	success_win(t_info *i);
-void	fale_win(t_info *i);
+int		set_gkey(int	key, void	*p);/* 名前の訂正 */
+int		rm_gkey(int	key, void	*p);/* 名前の訂正 */
+//tool
 void	itosu(char	*str, unsigned int	n);
+int		my_rand(u_int8_t *base);
 
 
 void		sha256(const void *data, size_t len, uint8_t *hash);
-
+//libft
 size_t	ft_strlen(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
