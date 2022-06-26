@@ -146,11 +146,11 @@ void	free_Wmob_error(t_info	*i);
 //key.c
 int		set_key(int	key, void	*p);/* 名前の訂正 */
 int		rm_key(int	key, void	*p);/* 名前の訂正 */
-//tool
+//tool.c
 void	itosu(char	*str, unsigned int	n);
 int		my_rand(u_int8_t *base);
 //sha256
-void		sha256(const void *data, size_t len, uint8_t *hash);
+void	sha256(const void *data, size_t len, uint8_t *hash);
 //libft
 size_t	ft_strlen(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
