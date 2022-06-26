@@ -7,7 +7,7 @@ SRCb_d			= src_bonus/
 MINLIBX_d		= minilibx_mms_20200219/
 SRC				= so_long.c
 SHA256_SRC		= sha256.c sha256_done.c sha256_hash.c sha256_init.c sha256_utilA.c sha256_utilB.c tool.c
-SRCb			= so_long.c
+SRCb			= decideP.c decide_util.c error.c execut_util.c game_win.c key.c map_util.c so_long.c tool.c decideW.c end_win.c execut.c game.c game_win_util.c map.c window.c
 SHA256_h		= sha256.h
 HEDER			= so_long.h
 HEDERb			= so_long.h
@@ -16,7 +16,7 @@ SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
 MINLIBX			= libmlx.dylib
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -Imlx
+CFLAGS			= -Wall -Wextra -Werror -Wshadow -Imlx
 LFLAGS			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
 PRINTF_od		= ftprintf_o/

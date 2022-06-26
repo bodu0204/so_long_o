@@ -7,6 +7,8 @@
 		"algorithm": "c",
 		"bitset": "c",
 		"memory": "c",
-		"optional": "c"
+		"optional": "c",
+		"so_long.h": "c",
+		"debug.h": "c"
 	}
 }
