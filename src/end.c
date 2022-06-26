@@ -16,9 +16,9 @@ void	file_error(char *must_free, char *msg)
 	exit(1);
 }
 
-int		end_game(void *p)
+int	end_game(void *p)
 {
-	t_info *i;
+	t_info	*i;
 
 	i = p;
 	mlx_destroy_image(i->mlx, i->img_0);

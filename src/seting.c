@@ -23,16 +23,16 @@ void	set_win(t_info	*i)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == '1')
-			mlx_put_image_to_window(i->mlx, i->win, img1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img1, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else
-			mlx_put_image_to_window(i->mlx, i->win, img0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img0, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
 	mlx_destroy_image(i->mlx, img0);
 	mlx_destroy_image(i->mlx, img1);
 	set_win1(i);
-	return ;
-
 	return ;
 }
 
