@@ -1,6 +1,6 @@
 #include"so_long.h"
 
-int	set_key(int	key, void	*p)
+int set_key(int	key, void	*p)
 {
 	t_info	*i;
 
@@ -17,15 +17,15 @@ int	set_key(int	key, void	*p)
 		i->newkey = ESC_KEY;
 	else
 		i->newkey = NO_KEY;
-	return (0);
+	return(0);
 }
 
-int	rm_key(int	key, void	*p)
+int rm_key(int	key, void	*p)
 {
 	t_info	*i;
 
 	i = p;
 	(void)key;
 	i->newkey = NO_KEY;
-	return (0);
+	return(0);
 }

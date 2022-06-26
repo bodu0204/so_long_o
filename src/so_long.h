@@ -1,7 +1,6 @@
 #ifndef SO_LONG_H
 #define SO_LONG_H
 
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -45,20 +44,24 @@ enum
 	RIGHT,
 	ESC_KEY
 };
-
+//map.c
 void	get_map(t_info *i, int argc, char *argv[]);
-void	check_arg(int argc, char *argv[]);
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s);
 void	convert_map(t_info	*i);
 void	check_map(t_info	*i);
+//map_util.c
+void	check_arg(int argc, char *argv[]);
 int		is_map_elem(char elm, size_t c, size_t	w, size_t	h);
+//seting.c
 void	get_img(t_info	*i);
 void	set_win(t_info	*i);
+//game.c
 int		game_process(void *p);
 void	move(t_info	*i, int key);
-void	load(unsigned long int i);
-int		set_gkey(int	key, void	*p);
-int		rm_gkey(int	key, void	*p);
+//key.c
+int		set_key(int	key, void	*p);
+int		rm_key(int	key, void	*p);
+//end.c
 void	error_exit(char *msg);
 void	file_error(char *must_free, char *msg);
 int		end_game(void *i);

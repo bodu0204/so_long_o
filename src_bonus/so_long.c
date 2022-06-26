@@ -15,8 +15,8 @@ int	main(int argc, char *argv[])
 	base_win(&i);
 	set_win(&i);
 	mlx_loop_hook(i.mlx, game_main, &i);
-	mlx_hook(i.win, 2, 0, set_gkey, &i);
-	mlx_hook(i.win, 3, 0, rm_gkey, &i);
+	mlx_hook(i.win, 2, 0, set_key, &i);
+	mlx_hook(i.win, 3, 0, rm_key, &i);
 	mlx_hook(i.win, 17, 0, end_game, &i);
 	mlx_loop(i.mlx);
 	return (0);

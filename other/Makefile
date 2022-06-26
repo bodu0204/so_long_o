@@ -5,7 +5,7 @@ SRC_d			= src/
 SHA256_d		= sha256_src/
 SRCb_d			= src_bonus/
 MINLIBX_d		= minilibx_mms_20200219/
-SRC				= so_long.c
+SRC				= end.c game.c key.c map.c map_util.c seting.c so_long.c
 SHA256_SRC		= sha256.c sha256_done.c sha256_hash.c sha256_init.c sha256_utilA.c sha256_utilB.c tool.c
 SRCb			= decideP.c decide_util.c errorA.c errorB.c execut_util.c game_win.c key.c map_util.c so_long.c tool.c decideW.c end_win.c execut.c game.c game_win_util.c map.c window.c
 SHA256_h		= sha256.h
@@ -15,7 +15,7 @@ SRC_o			= $(SRC:%.c=%.o)
 SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
 MINLIBX			= libmlx.dylib
-CC				= gcc
+CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -Wshadow -Imlx
 LFLAGS			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
@@ -55,6 +55,7 @@ $(PRINTF_a) : $(PRINTF_d)
 
 clean :
 	cd "$(PRINTF_d)" && make clean
+	cd "$(MINLIBX_d)" && make clean
 	rm -f $(addprefix $(CLIENT_d),$(CLIENT_o))
 	rm -f $(addprefix $(SERVER_d),$(SERVER_o))
 	rm -f $(addprefix $(SHA256_d),$(SHA256_o))

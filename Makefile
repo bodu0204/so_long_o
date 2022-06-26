@@ -1,6 +1,7 @@
 PROJECT_NAME	= so_long
 ACHIEV			= $(PROJECT_NAME)
 ACHIEVb			= $(ACHIEV)_bonus
+ACHIEV+			= libmlx.dylib
 SRC_PASS		= src
 SRCb_PASS		= src_bonus
 OTHER_PASS		= other
@@ -18,14 +19,15 @@ all : $(ACHIEV)
 
 $(ACHIEV) : file
 	cd "$(SUBMIT_d)" && make all
-	mv -f $(SUBMIT_d)$(ACHIEV) $(SUBMIT_d)$(ACHIEV).e
-	cp -f $(SUBMIT_d)$(ACHIEV).e ./
+	cp -f $(SUBMIT_d)$(ACHIEV) ./$(ACHIEV).exe
+	cp -f $(SUBMIT_d)$(ACHIEV+) ./
 
 bonus : $(ACHIEVb)
 
 $(ACHIEVb) : file
 	cd "$(SUBMIT_d)" && make bonus
 	cp -f $(SUBMIT_d)$(ACHIEVb) ./
+	cp -f $(SUBMIT_d)$(ACHIEV+) ./
 
 push : fclean
 	git add .
@@ -48,7 +50,8 @@ file : fclean cloneprintf
 	cp -rf $(SRCb_PASS) $(SUBMIT_d)
 	cp -f $(OTHER_PASS)/* $(SUBMIT_d)
 	cp -rf $(SHA256_PASS) $(SUBMIT_d)
-	cp -rf $(IMG) $(SUBMIT_d)
+	mkdir $(SUBMIT_d)$(IMG)
+	cp -rf $(IMG)/*.xpm $(SUBMIT_d)$(IMG)
 	cp -rf $(MINLIBX) $(SUBMIT_d)
 	mv $(PRINTF_d) $(SUBMIT_d)
 
@@ -63,7 +66,8 @@ fclean :
 	rm -rf $(SUBMIT_d)
 	rm -rf $(PRINTF_d)
 	rm -rf $(TEST_d)
-	rm -f $(ACHIEV)
+	rm -f $(ACHIEV).exe
+	rm -f $(ACHIEV+)
 	rm -f $(ACHIEVb)
 
 outclean :

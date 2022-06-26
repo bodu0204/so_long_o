@@ -149,8 +149,8 @@ void	frree_content(t_info *i);
 int		end_game(void *p);
 void	free_Wmob_error(t_info	*i);
 //key.c
-int		set_gkey(int	key, void	*p);/* 名前の訂正 */
-int		rm_gkey(int	key, void	*p);/* 名前の訂正 */
+int		set_key(int	key, void	*p);/* 名前の訂正 */
+int		rm_key(int	key, void	*p);/* 名前の訂正 */
 //tool
 void	itosu(char	*str, unsigned int	n);
 int		my_rand(u_int8_t *base);
