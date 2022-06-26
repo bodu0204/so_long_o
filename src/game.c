@@ -24,7 +24,7 @@ int	game_process(void *p)
 	return (0);
 }
 
-void move(t_info	*i, int key)
+void	move(t_info	*i, int key)
 {
 	int	c;
 
@@ -41,7 +41,7 @@ void move(t_info	*i, int key)
 	{
 		ft_printf("%u\n", i->walk++);
 		i->mc += c;
-		if(i->map_c[i->mc] == 'C')
+		if (i->map_c[i->mc] == 'C')
 			i->item--;
 		i->map_c[i->mc] = '0';
 	}

@@ -1,10 +1,9 @@
 #ifndef SO_LONG_H
-#define SO_LONG_H
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "../minilibx_mms_20200219/mlx.h"
+# define SO_LONG_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "../minilibx_mms_20200219/mlx.h"
 
 typedef struct s_info
 {
@@ -25,15 +24,15 @@ typedef struct s_info
 	unsigned int	walk;
 }	t_info;
 
-#define BUFSIZ 64
-#define BLOCKLEN 30
-#define WEIFHT 0x7ff
-#define FILE_0b "img/floor_big.xpm"
-#define FILE_1b "img/wall_big.xpm"
-#define FILE_0 "img/floor.xpm"
-#define FILE_P "img/anya0.xpm"
-#define FILE_C "img/peanuts.xpm"
-#define FILE_E "img/tv.xpm"
+# define BUFSIZ 64
+# define BLOCKLEN 30
+# define WEIFHT 0x7ff
+# define FILE_0b "img/floor_big.xpm"
+# define FILE_1b "img/wall_big.xpm"
+# define FILE_0 "img/floor.xpm"
+# define FILE_P "img/anya0.xpm"
+# define FILE_C "img/peanuts.xpm"
+# define FILE_E "img/tv.xpm"
 
 enum
 {
