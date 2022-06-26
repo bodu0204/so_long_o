@@ -64,8 +64,7 @@ int		rm_key(int	key, void	*p);
 void	error_exit(char *msg);
 void	file_error(char *must_free, char *msg);
 int		end_game(void *i);
-
-
+//libft
 size_t	ft_strlen(const char *str);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
