@@ -27,8 +27,8 @@ typedef struct s_info
 # define BUFSIZ 64
 # define BLOCKLEN 30
 # define WEIFHT 0x7ff
-# define FILE_0b "img/floor_big.xpm"
-# define FILE_1b "img/wall_big.xpm"
+# define FILE_0B "img/floor_big.xpm"
+# define FILE_1B "img/wall_big.xpm"
 # define FILE_0 "img/floor.xpm"
 # define FILE_P "img/anya0.xpm"
 # define FILE_C "img/peanuts.xpm"

@@ -17,8 +17,8 @@ void	set_win(t_info	*i)
 	void	*img0;
 	void	*img1;
 
-	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
-	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
+	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0B, &buf, &buf);
+	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1B, &buf, &buf);
 	j = 0;
 	while (i->map_c[j])
 	{
