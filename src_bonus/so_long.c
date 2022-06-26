@@ -1,15 +1,16 @@
 #include"so_long.h"
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_info i;
+	t_info	i;
 
 	ft_bzero(&i, sizeof(t_info));
 	i.newkey = NO_KEY;
 	check_arg(argc, argv);
 	get_map(&i, argv[1]);
 	i.mlx = mlx_init();
-	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
+	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, \
+	i.map_h * BLOCKLEN, "so_long");
 	get_img(&i);
 	base_win(&i);
 	set_win(&i);
@@ -20,7 +21,8 @@ int main(int argc, char *argv[])
 	mlx_loop(i.mlx);
 	return (0);
 }
-void check_arg(int argc, char *argv[])
+
+void	check_arg(int argc, char *argv[])
 {
 	if (argc < 2)
 		error_exit("No map!\n");
@@ -32,4 +34,3 @@ void check_arg(int argc, char *argv[])
 		error_exit("Invalid format!\n");
 	return ;
 }
-

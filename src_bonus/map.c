@@ -1,7 +1,6 @@
 #include"so_long.h"
-#include "debug.h"
 
-void get_map(t_info *i, char *name)
+void	get_map(t_info *i, char *name)
 {
 	read_map(i, 0, name, 0);
 	convert_map(i);
@@ -34,7 +33,7 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 	}
 	else
 		read_map(i, fd, NULL, s + j);
-	ft_memcpy(i->map_c, buf, j);
+	ft_memcpy(i->map_c + s, buf, j);
 	return ;
 }
 
@@ -46,7 +45,7 @@ void	convert_map(t_info	*i)
 
 	j = 0;
 	c = 0;
-	while(i->map_c[j])
+	while (i->map_c[j])
 	{
 		l = 0;
 		while (i->map_c[j] && i->map_c[j] != '\n')
@@ -59,14 +58,13 @@ void	convert_map(t_info	*i)
 		if (l == j)
 			i->map_w = l;
 		if (i->map_w != l || i->map_c[j] != '\n')
-			file_error(i->map_c);
+			file_error(i->map_c, "line errror\n");
 		i->map_h++;
 		j++;
 	}
 	i->map_c[c] = '\0';
 	return ;
 }
-
 
 void	check_map(t_info	*i)
 {
@@ -76,7 +74,7 @@ void	check_map(t_info	*i)
 	while (i->map_c[m[0]])
 	{
 		if (is_map_elem(i->map_c[m[0]], m[0], i->map_w, i->map_h))
-			file_error(i->map_c);
+			file_error(i->map_c, "charractor error\n");
 		if (i->map_c[m[0]] == 'E')
 			m[1]++;
 		else if (i->map_c[m[0]] == 'C')
@@ -90,6 +88,6 @@ void	check_map(t_info	*i)
 		m[0]++;
 	}
 	if (!m[1] || !i->item || !m[2] || m[2] > 1 || m[3] > 1 || m[4] > 1)
-			file_error(i->map_c);
+		file_error(i->map_c, "charractor sum error\n");
 	return ;
 }

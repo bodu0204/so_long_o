@@ -25,13 +25,13 @@ typedef struct s_info
 
 #define BLOCKLEN 30
 #define WEIFHT 0x7ff
-#define FILE_0b "floor_big.xpm"
-#define FILE_1b "wall_big.xpm"
-#define FILE_0 "floor.xpm"
-#define FILE_1 "wall.xpm"
-#define FILE_P "anya0.xpm"
-#define FILE_C "peanuts.xpm"
-#define FILE_E "tv.xpm"
+#define FILE_0b "img/floor_big.xpm"
+#define FILE_1b "img/wall_big.xpm"
+#define FILE_0 "img/floor.xpm"
+#define FILE_1 "img/wall.xpm"
+#define FILE_P "img/anya0.xpm"
+#define FILE_C "img/peanuts.xpm"
+#define FILE_E "img/tv.xpm"
 
 enum
 {

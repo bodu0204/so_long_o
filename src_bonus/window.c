@@ -35,18 +35,22 @@ void	set_win(t_info	*i)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == 'C')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_c, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_c, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (i->map_c[j] == 'E')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_e, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (i->map_c[j] == 'W')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_w[9], (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, i->img_w[9], \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		if (i->map_c[j] == 'P' || i->map_c[j] == 'W')
 			i->map_c[j] = '0';
-		else if(i->map_c[j] == 'M' || i->map_c[j] == 'F')
+		else if (i->map_c[j] == 'M' || i->map_c[j] == 'F')
 			i->map_c[j] = '1';
 		j++;
 	}
-	mlx_put_image_to_window(i->mlx, i->win, i->img_p[BACK], i->mp.nowx, i->mp.nowy);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p[BACK], \
+	i->mp.nowx, i->mp.nowy);
 	return ;
 }
 
@@ -63,9 +67,11 @@ void	base_win(t_info	*i)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == '1')
-			mlx_put_image_to_window(i->mlx, i->win, img1, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img1, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else
-			mlx_put_image_to_window(i->mlx, i->win, img0, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, img0, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
 	mlx_destroy_image(i->mlx, img0);
@@ -82,13 +88,15 @@ void	base_win1(t_info	*i)
 	if (i->mm)
 	{
 		img = mlx_xpm_file_to_image(i->mlx, FILE_M, &buf, &buf);
-		mlx_put_image_to_window(i->mlx, i->win, img, (i->mm % i->map_w) * BLOCKLEN, (i->mm / i->map_w) * BLOCKLEN);
+		mlx_put_image_to_window(i->mlx, i->win, img, \
+		(i->mm % i->map_w) * BLOCKLEN, (i->mm / i->map_w) * BLOCKLEN);
 		mlx_destroy_image(i->mlx, img);
 	}
 	if (i->mf)
 	{
 		img = mlx_xpm_file_to_image(i->mlx, FILE_F, &buf, &buf);
-		mlx_put_image_to_window(i->mlx, i->win, img, (i->mf % i->map_w) * BLOCKLEN, (i->mf / i->map_w) * BLOCKLEN);
+		mlx_put_image_to_window(i->mlx, i->win, img, \
+		(i->mf % i->map_w) * BLOCKLEN, (i->mf / i->map_w) * BLOCKLEN);
 		mlx_destroy_image(i->mlx, img);
 	}
 	return ;

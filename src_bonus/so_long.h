@@ -144,7 +144,7 @@ void	success_win(t_info *i);
 void	fale_win(t_info *i);
 //error.c
 void	error_exit(char *msg);
-void	file_error(char *must_free);
+void	file_error(char *must_free, char *msg);
 void	frree_content(t_info *i);
 int		end_game(void *p);
 void	free_Wmob_error(t_info	*i);
@@ -154,7 +154,6 @@ int		rm_gkey(int	key, void	*p);/* 名前の訂正 */
 //tool
 void	itosu(char	*str, unsigned int	n);
 int		my_rand(u_int8_t *base);
-
 
 void		sha256(const void *data, size_t len, uint8_t *hash);
 //libft

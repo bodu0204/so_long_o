@@ -1,8 +1,9 @@
 #include"so_long.h"
 
-int set_gkey(int	key, void	*p)
+int	set_gkey(int	key, void	*p)
 {
 	t_info	*i;
+
 	i = p;
 	if (key == 0 || key == 123)
 		i->newkey = LEFT;
@@ -16,15 +17,15 @@ int set_gkey(int	key, void	*p)
 		i->newkey = ESC_KEY;
 	else
 		i->newkey = NO_KEY;
-	return(0);
+	return (0);
 }
 
 int	rm_gkey(int	key, void	*p)
 {
 	t_info	*i;
-	i = p;
 
+	i = p;
 	(void)key;
 	i->newkey = NO_KEY;
-	return(0);
+	return (0);
 }

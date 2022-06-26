@@ -1,6 +1,6 @@
 #include"so_long.h"
 
-int game_main(void *p)
+int	game_main(void *p)
 {
 	t_info	*i;
 
@@ -42,7 +42,7 @@ void	game_process(t_info	*i)
 	{
 		turnp(i, i->key);
 		if (i->key != NO_KEY)
-		i->key_ok = 0;
+			i->key_ok = 0;
 	}
 	if (!(i->time % TURN))
 		move(i);

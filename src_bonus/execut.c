@@ -1,15 +1,15 @@
 #include"so_long.h"
 
-void move(t_info	*i)
+void	move(t_info	*i)
 {
 	t_mob	*m;
 
 	clean_win(i);
 	move_mob(i, &(i->mp));
 	m = i->mw;
-	while(m)
+	while (m)
 	{
-		move_mob(i,m);
+		move_mob(i, m);
 		m = m->next;
 	}
 	move_result(i);
@@ -20,7 +20,7 @@ void move(t_info	*i)
 	return ;
 }
 
-void clean_win(t_info	*i)
+void	clean_win(t_info	*i)
 {
 	t_mob	*m;
 
@@ -34,10 +34,11 @@ void clean_win(t_info	*i)
 	return ;
 }
 
-void move_mob(t_info	*i, t_mob	*m)
+void	move_mob(t_info	*i, t_mob	*m)
 {
 	if (m->direct == NO_KEY || m->direct >= DEAD \
-	|| ((m->to % i->map_w) * BLOCKLEN == m->nowx && (m->to / i->map_w) * BLOCKLEN == m->nowy))
+	|| ((m->to % i->map_w) * BLOCKLEN == m->nowx \
+		&& (m->to / i->map_w) * BLOCKLEN == m->nowy))
 	{
 		if (m->direct >= DEAD)
 			m->direct++;
@@ -56,19 +57,20 @@ void move_mob(t_info	*i, t_mob	*m)
 
 void	move_result(t_info	*i)
 {
-	t_mob *m;
+	t_mob	*m;
 
 	i->mw = rm_w(i->mw);
 	m = i->mw;
 	while (m)
 	{
-		m_killer(i,m);
+		m_killer(i, m);
 		m = m->next;
 	}
 	m = i->mw;
 	while (m)
 	{
-		if (m->direct < DEAD && distance(m, &(i->mp)) < DEATHLEN && i->situ != SUCCESS)
+		if (m->direct < DEAD && distance(m, &(i->mp)) < DEATHLEN \
+		&& i->situ != SUCCESS)
 		{
 			i->situ = FALE;
 			break ;
@@ -80,13 +82,13 @@ void	move_result(t_info	*i)
 
 t_mob	*rm_w(t_mob *start)
 {
-	t_mob *m;
-	t_mob *mn;
+	t_mob	*m;
+	t_mob	*mn;
 
 	if (!start)
 		return (NULL);
 	m = start;
-	while(m->next)
+	while (m->next)
 	{
 		if (m->next->direct >= DEAD + BLOCKLEN)
 		{

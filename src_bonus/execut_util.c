@@ -1,7 +1,7 @@
 #include"so_long.h"
-void m_killer1(t_info	*i, t_mob	*m);
+void	m_killer1(t_info	*i, t_mob	*m);
 
-void m_killer(t_info	*i, t_mob	*m)
+void	m_killer(t_info	*i, t_mob	*m)
 {
 	size_t	mx;
 	size_t	my;
@@ -21,13 +21,13 @@ void m_killer(t_info	*i, t_mob	*m)
 	if (my > mx)
 		mx = my;
 	if (mx > BLOCKLEN)
-		return;
+		return ;
 	else
 		m_killer1(i, m);
 	return ;
 }
 
-void m_killer1(t_info	*i, t_mob	*m)
+void	m_killer1(t_info	*i, t_mob	*m)
 {
 	size_t	mx;
 	size_t	my;
@@ -46,10 +46,10 @@ void m_killer1(t_info	*i, t_mob	*m)
 		mx = my;
 	if (mx <= BLOCKLEN)
 		m->direct = DEAD;
-	return;
+	return ;
 }
 
-size_t distance(t_mob	*m1, t_mob	*m2)
+size_t	distance(t_mob	*m1, t_mob	*m2)
 {
 	size_t	x;
 	size_t	y;

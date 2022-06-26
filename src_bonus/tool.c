@@ -1,8 +1,8 @@
 #include"so_long.h"
 
-int		my_rand(u_int8_t *base)
+int	my_rand(u_int8_t *base)
 {
-	int		r;
+	int	r;
 
 	base[0] &= 0x7;
 	if (!base[0])
@@ -43,4 +43,3 @@ void	itosu(char	*str, unsigned int	n)
 	*str = '\0';
 	return ;
 }
-

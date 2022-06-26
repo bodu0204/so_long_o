@@ -2,7 +2,7 @@
 
 void	turnp(t_info	*i, int key)
 {
-	int	able[4];
+	int		able[4];
 	char	num[32];
 
 	if (key < 4)
@@ -15,10 +15,10 @@ void	turnp(t_info	*i, int key)
 	{
 		i->walk++;
 		itosu(num, i->walk);
-		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 0* BLOCKLEN, 0);
-		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 1* BLOCKLEN, 0);
-		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 2* BLOCKLEN, 0);
-		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 3* BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 0 * BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 1 * BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 2 * BLOCKLEN, 0);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_1, 3 * BLOCKLEN, 0);
 		mlx_string_put(i->mlx, i->win, 0, 12, 0xFFECE1, num);
 		go_straight(i, &(i->mp));
 	}

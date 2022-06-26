@@ -1,6 +1,6 @@
 #include"so_long.h"
-#include"debug.h"
-int is_map_elem(char elm, size_t c, size_t	w, size_t	h)
+
+int	is_map_elem(char elm, size_t c, size_t	w, size_t	h)
 {
 	if ((c % w == 0 && elm != '1') \
 	|| (c % w == w - 1 && elm != '1') \
@@ -44,8 +44,8 @@ void	reset_mob(t_info	*i, t_mob *m, size_t c, int d)
 
 void	set_Wmob(t_info	*i, size_t c)
 {
-	t_mob *new;
-	t_mob *last;
+	t_mob	*new;
+	t_mob	*last;
 
 	new = malloc(sizeof(t_mob));
 	if (!new)
@@ -57,10 +57,9 @@ void	set_Wmob(t_info	*i, size_t c)
 		i->mw = new;
 	else
 	{
-		while(last->next)
+		while (last->next)
 			last = last->next;
 		last->next = new;
 	}
 	return ;
 }
-
