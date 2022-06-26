@@ -6,7 +6,7 @@
 /*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:19:41 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/06/26 20:19:42 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:44:09 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_info
 # define DEATHLEN 10
 # define MAMLEN 30
 # define DADLEN 150
-# define TURN (WEIFHT / BLOCKLEN)
+# define TURN 68
 
 # define FILE_0B "img/floor_bonus_big.xpm"
 # define FILE_1B "img/wall_big.xpm"
