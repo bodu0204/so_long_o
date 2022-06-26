@@ -8,38 +8,38 @@
 
 typedef struct s_mob
 {
-	size_t		nowx;
-	size_t		nowy;
-	size_t		to;
-	int			direct;
+	size_t			nowx;
+	size_t			nowy;
+	size_t			to;
+	int				direct;
 	struct s_mob	*next;
 }	t_mob;
 
 typedef struct s_info
 {
-	void	*mlx;
-	void	*win;
-	size_t	map_w;
-	size_t	map_h;
-	char	*map_c;
-	size_t	item;
-	size_t	mm;
-	size_t	mf;
-	t_mob	mp;
-	t_mob	*mw;
-	size_t	walk;
-	void	*img_0;
-	void	*img_1;
-	void	*img_p[4];
-	void	*img_c;
-	void	*img_e;
-	void	*img_w[11];
-	int		situ;
-	int		newkey;
-	int		key;
-	int		key_ok;
-	size_t	time;
-	size_t	reset;
+	void		*mlx;
+	void		*win;
+	size_t		map_w;
+	size_t		map_h;
+	char		*map_c;
+	size_t		item;
+	size_t		mm;
+	size_t		mf;
+	t_mob		mp;
+	t_mob		*mw;
+	size_t		walk;
+	void		*img_0;
+	void		*img_1;
+	void		*img_p[4];
+	void		*img_c;
+	void		*img_e;
+	void		*img_w[11];
+	int			situ;
+	int			newkey;
+	int			key;
+	int			key_ok;
+	size_t		time;
+	size_t		reset;
 	u_int8_t	buf[33];
 }	t_info;
 
@@ -51,14 +51,14 @@ typedef struct s_info
 # define DADLEN 150
 # define TURN (WEIFHT / BLOCKLEN)
 
-# define FILE_0b "img/floor_bonus_big.xpm"
-# define FILE_1b "img/wall_big.xpm"
+# define FILE_0B "img/floor_bonus_big.xpm"
+# define FILE_1B "img/wall_big.xpm"
 # define FILE_0 "img/floor_bonus.xpm"
 # define FILE_1 "img/wall.xpm"
-# define FILE_Pf "img/anya3.xpm"
-# define FILE_Pb "img/anya0.xpm"
-# define FILE_Pl "img/anya1.xpm"
-# define FILE_Pr "img/anya2.xpm"
+# define FILE_PF "img/anya3.xpm"
+# define FILE_PB "img/anya0.xpm"
+# define FILE_PL "img/anya1.xpm"
+# define FILE_PR "img/anya2.xpm"
 # define FILE_C "img/peanuts.xpm"
 # define FILE_E "img/tv.xpm"
 # define FILE_M "img/mam.xpm"

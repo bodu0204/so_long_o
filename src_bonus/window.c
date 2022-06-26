@@ -7,10 +7,10 @@ void	get_img(t_info	*i)
 
 	i->img_0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &buf, &buf);
 	i->img_1 = mlx_xpm_file_to_image(i->mlx, FILE_1, &buf, &buf);
-	i->img_p[FRONT] = mlx_xpm_file_to_image(i->mlx, FILE_Pf, &buf, &buf);
-	i->img_p[BACK] = mlx_xpm_file_to_image(i->mlx, FILE_Pb, &buf, &buf);
-	i->img_p[LEFT] = mlx_xpm_file_to_image(i->mlx, FILE_Pl, &buf, &buf);
-	i->img_p[RIGHT] = mlx_xpm_file_to_image(i->mlx, FILE_Pr, &buf, &buf);
+	i->img_p[FRONT] = mlx_xpm_file_to_image(i->mlx, FILE_PF, &buf, &buf);
+	i->img_p[BACK] = mlx_xpm_file_to_image(i->mlx, FILE_PB, &buf, &buf);
+	i->img_p[LEFT] = mlx_xpm_file_to_image(i->mlx, FILE_PL, &buf, &buf);
+	i->img_p[RIGHT] = mlx_xpm_file_to_image(i->mlx, FILE_PR, &buf, &buf);
 	i->img_c = mlx_xpm_file_to_image(i->mlx, FILE_C, &buf, &buf);
 	i->img_e = mlx_xpm_file_to_image(i->mlx, FILE_E, &buf, &buf);
 	i->img_w[0] = i->img_0;
@@ -61,8 +61,8 @@ void	base_win(t_info	*i)
 	void	*img0;
 	void	*img1;
 
-	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
-	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
+	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0B, &buf, &buf);
+	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1B, &buf, &buf);
 	j = 0;
 	while (i->map_c[j])
 	{
