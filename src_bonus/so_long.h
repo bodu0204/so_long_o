@@ -90,8 +90,6 @@ typedef struct s_info
 # define FALE 3
 # define END 4
 
-
-
 void	check_arg(int argc, char *argv[]);
 //map.c
 void	get_map(t_info *i, char *name);
@@ -151,7 +149,7 @@ int		rm_key(int	key, void	*p);/* 名前の訂正 */
 //tool
 void	itosu(char	*str, unsigned int	n);
 int		my_rand(u_int8_t *base);
-
+//sha256
 void		sha256(const void *data, size_t len, uint8_t *hash);
 //libft
 size_t	ft_strlen(const char *str);
