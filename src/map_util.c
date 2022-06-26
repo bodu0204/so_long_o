@@ -6,7 +6,7 @@
 /*   By: ryoakira <ryoakira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:17:41 by ryoakira          #+#    #+#             */
-/*   Updated: 2022/06/26 20:17:42 by ryoakira         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:51:09 by ryoakira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_map_elem(char elm, size_t c, size_t	w, size_t	h)
 	|| (c < w - 1 && elm != '1') \
 	|| (c > w * (h - 1) && elm != '1') \
 	|| (elm != '0' && elm != '1' && elm != 'E' && elm != 'C' \
-		&& elm != 'P' && elm != 'W' && elm != 'M' && elm != 'F'))
+		&& elm != 'P'))
 		return (1);
 	return (0);
 }
