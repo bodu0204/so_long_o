@@ -54,6 +54,8 @@ file : fclean cloneprintf
 	cp -rf $(IMG)/*.xpm $(SUBMIT_d)$(IMG)
 	cp -rf $(MINLIBX) $(SUBMIT_d)
 	mv $(PRINTF_d) $(SUBMIT_d)
+	cp -f map/map_bonus.ber $(SUBMIT_d)
+	cp -f map/map.ber $(SUBMIT_d)
 
 test : file
 	cd "$(SUBMIT_d)" && make all

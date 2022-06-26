@@ -15,7 +15,7 @@ SRC_o			= $(SRC:%.c=%.o)
 SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
 MINLIBX			= libmlx.dylib
-CC				= gcc
+CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -Wshadow -Imlx
 LFLAGS			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
