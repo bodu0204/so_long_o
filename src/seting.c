@@ -49,12 +49,15 @@ void	set_win1(t_info	*i)
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == 'C')
-			mlx_put_image_to_window(i->mlx, i->win, imgc, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, imgc, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (i->map_c[j] == 'E')
-			mlx_put_image_to_window(i->mlx, i->win, imge, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, imge, \
+			(j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
 	mlx_destroy_image(i->mlx, imgc);
 	mlx_destroy_image(i->mlx, imge);
-	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p, \
+	(i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 }
