@@ -1,6 +1,6 @@
 #include"so_long.h"
 
-int game_process(void *p)
+int	game_process(void *p)
 {
 	t_info	*i;
 
@@ -14,7 +14,8 @@ int game_process(void *p)
 		end_game(i);
 	else if (i->key != NO_KEY && i->key_ok)
 	{
-		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
+		mlx_put_image_to_window(i->mlx, i->win, i->img_0, \
+		(i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 		move(i, i->key);
 		i->key_ok = 0;
 	}
