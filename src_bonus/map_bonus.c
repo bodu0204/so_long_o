@@ -1,11 +1,11 @@
-#include"so_long.h"
+#include"so_long_bonus.h"
 
-void	get_map(t_info *i, int argc, char *argv[])
+void	get_map(t_info *i, char *name)
 {
-	check_arg(argc, argv);
-	read_map(i, 0, argv[1], 0);
+	read_map(i, 0, name, 0);
 	convert_map(i);
 	check_map(i);
+	set_mob(i);
 	return ;
 }
 
@@ -68,9 +68,9 @@ void	convert_map(t_info	*i)
 
 void	check_map(t_info	*i)
 {
-	size_t	m[3];
+	size_t	m[5];
 
-	ft_bzero(m, sizeof(size_t) * 3);
+	ft_bzero(m, sizeof(size_t) * 5);
 	while (i->map_c[m[0]])
 	{
 		if (is_map_elem(i->map_c[m[0]], m[0], i->map_w, i->map_h))
@@ -80,13 +80,14 @@ void	check_map(t_info	*i)
 		else if (i->map_c[m[0]] == 'C')
 			i->item++;
 		else if (i->map_c[m[0]] == 'P')
-		{
-			i->mc = m[0];
 			m[2]++;
-		}
+		else if (i->map_c[m[0]] == 'M')
+			m[3]++;
+		else if (i->map_c[m[0]] == 'F')
+			m[4]++;
 		m[0]++;
 	}
-	if (!m[1] || !i->item || !m[2] || m[2] > 1)
+	if (!m[1] || !i->item || !m[2] || m[2] > 1 || m[3] > 1 || m[4] > 1)
 		file_error(i->map_c, "Error\ncharacter sum error\n");
 	return ;
 }

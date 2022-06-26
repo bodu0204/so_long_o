@@ -2,20 +2,20 @@ PROJECT_NAME	= so_long
 ACHIEV			= $(PROJECT_NAME)
 ACHIEVb			= $(ACHIEV)_bonus
 SRC_d			= src/
-SHA256_d		= sha256_src/
+SHA256_d		= sha256_src_bonus/
 SRCb_d			= src_bonus/
 MINLIBX_d		= minilibx_mms_20200219/
 SRC				= end.c game.c key.c map.c map_util.c seting.c so_long.c
-SHA256_SRC		= sha256.c sha256_done.c sha256_hash.c sha256_init.c sha256_utilA.c sha256_utilB.c tool.c
-SRCb			= decideP.c decide_util.c errorA.c errorB.c execut_util.c game_win.c key.c map_util.c so_long.c tool.c decideW.c end_win.c execut.c game.c game_win_util.c map.c window.c
-SHA256_h		= sha256.h
+SHA256_SRC		= sha256_bonus.c sha256_done_bonus.c sha256_hash_bonus.c sha256_init_bonus.c sha256_utilA_bonus.c sha256_utilB_bonus.c tool_bonus.c
+SRCb			= decideP_bonus.c end_win_bonus.c execut_bonus.c game_win_bonus.c map_bonus.c tool_bonus.c decideW_bonus.c errorA_bonus.c execut_util_bonus.c game_win_util_bonus.c map_util_bonus.c window_bonus.c decide_util_bonus.c errorB_bonus.c game_bonus.c key_bonus.c so_long_bonus.c
+SHA256_h		= sha256_bonus.h
 HEDER			= so_long.h
-HEDERb			= so_long.h
+HEDERb			= so_long_bonus.h
 SRC_o			= $(SRC:%.c=%.o)
 SHA256_o		= $(SHA256_SRC:%.c=%.o)
 SRCb_o			= $(SRCb:%.c=%.o)
 MINLIBX			= libmlx.dylib
-CC				= cc
+CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -Wshadow -Imlx
 LFLAGS			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 PRINTF_GIT		= https://github.com/bodu0204/ftprintf_o.git
@@ -27,8 +27,8 @@ all : $(ACHIEV)
 
 $(NAME) : all
 
-$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(SHA256_d)$(SHA256_h) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX)
-	$(CC) $(addprefix $(SRC_d),$(SRC_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX) -o $(ACHIEV)
+$(ACHIEV) : $(PRINTF_a) $(SRC_d)$(HEDER) $(addprefix $(SRC_d),$(SRC_o)) $(MINLIBX)
+	$(CC) $(addprefix $(SRC_d),$(SRC_o)) $(PRINTF_a) $(MINLIBX) -o $(ACHIEV)
 
 $(ACHIEVb) : $(PRINTF_a) $(SRCb_d)$(HEDERb) $(SHA256_d)$(SHA256_h) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(MINLIBX)
 	$(CC) $(addprefix $(SRCb_d),$(SRCb_o)) $(addprefix $(SHA256_d),$(SHA256_o)) $(PRINTF_a) $(MINLIBX) -o $(ACHIEVb)
