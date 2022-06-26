@@ -9,6 +9,7 @@
 		"memory": "c",
 		"optional": "c",
 		"so_long.h": "c",
-		"debug.h": "c"
+		"debug.h": "c",
+		"__locale": "c"
 	}
 }

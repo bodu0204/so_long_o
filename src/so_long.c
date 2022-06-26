@@ -1,25 +1,5 @@
 #include"so_long.h"
-#include "debug.h"
-
-/* test */	double	time_diff(void)
-/* test */	{
-/* test */		static struct timespec	p = {0};
-/* test */		struct timespec			n;
-/* test */		unsigned int			sec;
-/* test */		int						nsec;
-/* test */
-/* test */		if (!p.tv_sec)
-/* test */		{
-/* test */			clock_gettime(CLOCK_REALTIME, &p);
-/* test */			return (0);
-/* test */		}
-/* test */		clock_gettime(CLOCK_REALTIME, &n);
-/* test */		sec = n.tv_sec - p.tv_sec;
-/* test */		nsec = n.tv_nsec - p.tv_nsec;
-/* test */		p = n;
-/* test */		return ((double)sec + (double)nsec / (1000 * 1000 * 1000));
-/* test */	}
-
+#include"debug.h"
 
 int g_key;
 
@@ -28,23 +8,30 @@ int main(int argc, char *argv[])
 	t_info i;
 
 	ft_bzero(&i, sizeof(t_info));
+	i.walk = 1;
 	get_map(&i, argc, argv);
 	i.mlx = mlx_init();
-	get_img(&i);
-TESTp(&i)
 	i.win = mlx_new_window(i.mlx, i.map_w * BLOCKLEN, i.map_h * BLOCKLEN, "so_long");
+	get_img(&i);
 	set_win(&i);
-TEST
 	mlx_loop_hook(i.mlx, game_process, &i);
-	mlx_hook(i.win, 2, 0, set_gkey, NULL);
-	mlx_hook(i.win, 3, 0, rm_gkey, NULL);
+	mlx_hook(i.win, 2, 0, set_gkey, &i);
+	mlx_hook(i.win, 3, 0, rm_gkey, &i);
 	mlx_hook(i.win, 17, 0, end_game, &i);
-TEST
 	mlx_loop(i.mlx);
  return (0);
 }
 
-void get_map(t_info *i, int argc, char *argv[])
+void	get_map(t_info *i, int argc, char *argv[])
+{
+	check_arg(argc, argv);
+	read_map(i, 0, argv[1], 0);
+	convert_map(i);
+	check_map(i);
+	return ;
+}
+
+void	check_arg(int argc, char *argv[])
 {
 	if (argc < 2)
 		error_exit("No map!\n");
@@ -54,9 +41,7 @@ void get_map(t_info *i, int argc, char *argv[])
 		error_exit("Invalid format!\n");
 	if (ft_memcmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 		error_exit("Invalid format!\n");
-	read_map(i, 0, argv[1], 0);
-	set_map(i);
-printf("%s", i->map_c);TEST
+	return ;
 }
 
 void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
@@ -83,67 +68,74 @@ void	read_map(t_info	*i, int	fd, char	*name, size_t	s)
 	}
 	else
 		read_map(i, fd, NULL, s + j);
-	ft_memcpy(i->map_c, buf, j);
+	ft_memcpy(i->map_c + s, buf, j);
 	return ;
 }
 
-void	set_map(t_info	*i)
+void	convert_map(t_info	*i)
 {
 	size_t	j;
 	size_t	c;
-	size_t	e;
+	size_t	l;
 
 	j = 0;
 	c = 0;
-	e = 0;
-	while (i->map_c[j] == '1')
-		j++;
-	if (i->map_c[j] != '\n')
-		file_error(i->map_c);
-	i->map_w = j;
-	i->map_h = 1;
-	c = j;
-	j++;
 	while (i->map_c[j])
 	{
-		if ((!(j % (i->map_w + 1)) && i->map_c[j] != '1')\
-			|| (!((j + 2) % (i->map_w + 1)) && i->map_c[j] != '1')\
-			|| (!((j + 1) % (i->map_w + 1)) && i->map_c[j] != '\n')\
-			|| (i->mc && i->map_c[j] == 'P'))
-			file_error(i->map_c);
-		if (i->map_c[j] == '0' || i->map_c[j] == '1' || i->map_c[j] == 'C' || i->map_c[j] == 'E')
+		l = 0;
+		while (i->map_c[j] && i->map_c[j] != '\n')
 		{
-			if (i->map_c[j] == 'C')
-				i->item++;
-			else if (i->map_c[j] == 'E')
-				e++;
 			i->map_c[c] = i->map_c[j];
-		}
-		else if (i->map_c[j] == 'P')
-		{
-			i->mc = c;
-			i->map_c[c] = '0';
-		}
-		else if (!(i->map_c[j] == '\n' && !((j + 1) % (i->map_w + 1))))
-			file_error(i->map_c);
-		if ((j + 1) % (i->map_w + 1))
+			j++;
 			c++;
-		else
-			i->map_h++;
+			l++;
+		}
+		if (l == j)
+			i->map_w = l;
+		if (i->map_w != l || i->map_c[j] != '\n')
+			file_error(i->map_c, "line errror\n");
+		i->map_h++;
 		j++;
 	}
-	if (j % (i->map_w + 1) || !(i->mc) || !(i->item) || !e)
-		file_error(i->map_c);
-	i->map_c[c + 1] = '\0';
-	while (c % i->map_w)
-	{
-		if (i->map_c[c] != '1')
-			file_error(i->map_c);
-		c--;
-	}
-	if (i->map_c[c] != '1')
-		file_error(i->map_c);
+	i->map_c[c] = '\0';
 	return ;
+}
+
+void	check_map(t_info	*i)
+{
+	size_t	m[3];
+
+	ft_bzero(m, sizeof(size_t) * 3);
+	while (i->map_c[m[0]])
+	{
+		if (is_map_elem(i->map_c[m[0]], m[0], i->map_w, i->map_h))
+			file_error(i->map_c, "charractor error\n");
+		if (i->map_c[m[0]] == 'E')
+			m[1]++;
+		else if (i->map_c[m[0]] == 'C')
+			i->item++;
+		else if (i->map_c[m[0]] == 'P')
+		{
+			i->mc = m[0];
+			m[2]++;
+		}
+		m[0]++;
+	}
+	if (!m[1] || !i->item || !m[2] || m[2] > 1)
+		file_error(i->map_c, "charractor sum error\n");
+	return ;
+}
+
+int	is_map_elem(char elm, size_t c, size_t	w, size_t	h)
+{
+	if ((c % w == 0 && elm != '1') \
+	|| (c % w == w - 1 && elm != '1') \
+	|| (c < w - 1 && elm != '1') \
+	|| (c > w * (h - 1) && elm != '1') \
+	|| (elm != '0' && elm != '1' && elm != 'E' && elm != 'C' \
+		&& elm != 'P' && elm != 'W' && elm != 'M' && elm != 'F'))
+		return (1);
+	return (0);
 }
 
 void	get_img(t_info	*i)
@@ -151,13 +143,11 @@ void	get_img(t_info	*i)
 	int	buf;
 
 	i->img_0 = mlx_xpm_file_to_image(i->mlx, FILE_0, &buf, &buf);
-	i->img_1 = mlx_xpm_file_to_image(i->mlx, FILE_1, &buf, &buf);
 	i->img_p = mlx_xpm_file_to_image(i->mlx, FILE_P, &buf, &buf);
-	i->img_c = mlx_xpm_file_to_image(i->mlx, FILE_C, &buf, &buf);
-	i->img_e = mlx_xpm_file_to_image(i->mlx, FILE_E, &buf, &buf);
 	return ;
 }
 
+void	set_win1(t_info	*i);
 void	set_win(t_info	*i)
 {
 	size_t	j;
@@ -165,10 +155,8 @@ void	set_win(t_info	*i)
 	void	*img0;
 	void	*img1;
 
-TEST
 	img0 = mlx_xpm_file_to_image(i->mlx, FILE_0b, &buf, &buf);
 	img1 = mlx_xpm_file_to_image(i->mlx, FILE_1b, &buf, &buf);
-TEST
 	j = 0;
 	while (i->map_c[j])
 	{
@@ -180,63 +168,75 @@ TEST
 	}
 	mlx_destroy_image(i->mlx, img0);
 	mlx_destroy_image(i->mlx, img1);
+	set_win1(i);
+	return ;
+	
+	return ;
+}
+
+void	set_win1(t_info	*i)
+{
+	size_t	j;
+	int		buf;
+	void	*imgc;
+	void	*imge;
+
+	imgc = mlx_xpm_file_to_image(i->mlx, FILE_C, &buf, &buf);
+	imge = mlx_xpm_file_to_image(i->mlx, FILE_E, &buf, &buf);
 	j = 0;
 	while (i->map_c[j])
 	{
 		if (i->map_c[j] == 'C')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_c, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, imgc, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		else if (i->map_c[j] == 'E')
-			mlx_put_image_to_window(i->mlx, i->win, i->img_e, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
+			mlx_put_image_to_window(i->mlx, i->win, imge, (j % i->map_w) * BLOCKLEN, (j / i->map_w) * BLOCKLEN);
 		j++;
 	}
+	mlx_destroy_image(i->mlx, imgc);
+	mlx_destroy_image(i->mlx, imge);
 	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
-	return ;
 }
 
 int game_process(void *p)
 {
-	static unsigned int time = 0;
-	static unsigned int reset = 0;
 	t_info	*i;
-	static int		key;
-	static int		key_ok = 1;
 
 	i = p;
-	if (time == reset)
-		key_ok = 1;
-	if (key == NO_KEY && g_key != NO_KEY && key_ok)
-		reset = time;
-	key = g_key;
-	if (key == ESC_KEY)
+	if (i->time == i->reset)
+		i->key_ok = 1;
+	if (i->key == NO_KEY && i->newkey != NO_KEY && i->key_ok)
+		i->reset = i->time;
+	i->key = i->newkey;
+	if (i->newkey == ESC_KEY)
 		end_game(i);
-	else if (key != NO_KEY && key_ok)
+	else if (i->key != NO_KEY && i->key_ok)
 	{
 		mlx_put_image_to_window(i->mlx, i->win, i->img_0, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
-		move(i, key);
-		key_ok = 0;
+		move(i, i->key);
+		i->key_ok = 0;
 	}
-	time++;
-	time &= WEIFHT;
+	i->time++;
+	i->time &= WEIFHT;
 	return (0);
 }
 
 int set_gkey(int	key, void	*p)
 {
-	(void)p;
-TESTn(key)
+	t_info	*i;
+
+	i = p;
 	if (key == 0 || key == 123)
-		g_key = LEFT;
+		i->newkey = LEFT;
 	else if (key == 1 || key == 125)
-		g_key = BACK;
+		i->newkey = BACK;
 	else if (key == 2 || key == 124)
-		g_key = RIGHT;
+		i->newkey = RIGHT;
 	else if (key == 13 || key == 126)
-		g_key = FRONT;
+		i->newkey = FRONT;
 	else if (key == 53)
-		g_key = ESC_KEY;
+		i->newkey = ESC_KEY;
 	else
-		g_key = NO_KEY;
-//TESTn(g_key)
+		i->newkey = NO_KEY;
 	return(0);
 }
 
@@ -255,7 +255,7 @@ void move(t_info	*i, int key)
 	if (i->map_c[i->mc + c] != '1'\
 		&& i->map_c[i->mc + c] != 'E')
 	{
-		write(STDOUT_FILENO, "[moveing]\n", 10);
+		ft_printf("%u\n", i->walk++);
 		i->mc += c;
 		if(i->map_c[i->mc] == 'C')
 			i->item--;
@@ -263,16 +263,18 @@ void move(t_info	*i, int key)
 	}
 	else if (i->map_c[i->mc + c] == 'E' && !i->item)
 		end_game(i);
-	mlx_put_image_to_window(i->mlx, i->win, i->img_p, (i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
+	mlx_put_image_to_window(i->mlx, i->win, i->img_p, \
+	(i->mc % i->map_w) * BLOCKLEN, (i->mc / i->map_w) * BLOCKLEN);
 }
 
 
 int rm_gkey(int	key, void	*p)
 {
-	(void)p;
+	t_info	*i;
+
+	i = p;
 	(void)key;
-	g_key = NO_KEY;
-//TEST
+	i->newkey = NO_KEY;
 	return(0);
 }
 
@@ -284,10 +286,11 @@ void	error_exit(char *msg)
 	return ;
 }
 
-void	file_error(char *must_free)
+void	file_error(char *must_free, char *msg)
 {
 	free(must_free);
-	write(STDOUT_FILENO, "Invalid file\n", 12);
+	if (msg)
+		write(STDOUT_FILENO, msg, ft_strlen(msg));
 	exit(1);
 }
 
@@ -297,10 +300,7 @@ int		end_game(void *p)
 
 	i = p;
 	mlx_destroy_image(i->mlx, i->img_0);
-	mlx_destroy_image(i->mlx, i->img_1);
 	mlx_destroy_image(i->mlx, i->img_p);
-	mlx_destroy_image(i->mlx, i->img_c);
-	mlx_destroy_image(i->mlx, i->img_e);
 	mlx_destroy_window(i->mlx, i->win);
 	free(i->map_c);
 	exit(0);
