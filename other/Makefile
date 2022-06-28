@@ -56,17 +56,15 @@ $(PRINTF_a) : $(PRINTF_d)
 clean :
 	cd "$(PRINTF_d)" && make clean
 	cd "$(MINLIBX_d)" && make clean
-	rm -f $(addprefix $(CLIENT_d),$(CLIENT_o))
-	rm -f $(addprefix $(SERVER_d),$(SERVER_o))
+	rm -f $(addprefix $(SRC_d),$(SRC_o))
+	rm -f $(addprefix $(SRCb_d),$(SRCb_o))
 	rm -f $(addprefix $(SHA256_d),$(SHA256_o))
-	rm -f $(addprefix $(CLIENTb_d),$(CLIENTb_o))
-	rm -f $(addprefix $(SERVERb_d),$(SERVERb_o))
-	rm -f $(addprefix $(SHA256b_d),$(SHA256b_o))
 	rm -f $(PRINTF_a)
 
 fclean : clean
 	rm -f $(ACHIEV)
 	rm -f $(ACHIEVb)
+	rm -f $(MINLIBX)
 	rm -rf $(PRINTF_od)
 	cd "$(PRINTF_d)" && make fclean
 
